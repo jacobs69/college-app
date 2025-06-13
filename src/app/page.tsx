@@ -1,8 +1,13 @@
 'use client';
 import { useState, useEffect } from 'react';
+import FeesPage from '@/app/fees/page';
+import StudyMaterialPage from '@/app/study/page';
+import BonafideCertificatePage from '@/app/bonafide/page';
+import ScholarshipPage from '@/app/scholar/page';
+import WalletPage from '@/app/wallet/page';
 
 function App() {
-  // 'landing', 'login', 'forgotPassword', 'register', 'dashboard', 'attendance', 'assignment', 'result', 'timetable', 'collegeGallery', 'aboutCollege', 'event', 'eventDetail', 'notifications', 'notificationDetail', 'id', 'wallet', or 'profile'
+  // 'landing', 'login', 'forgotPassword', 'register', 'dashboard', 'attendance', 'assignment', 'result', 'timetable', 'collegeGallery', 'aboutCollege', 'event', 'eventDetail', 'notifications', 'notificationDetail', 'id', 'wallet', 'profile', 'fees', 'studyMaterial', 'bonafide', 'scholarship', 'wallet'
   const [currentPage, setCurrentPage] = useState('landing');
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null); // State to hold selected event details
   const [selectedNotification, setSelectedNotification] = useState<Notification | null>(null); // State to hold selected notification details
@@ -19,7 +24,7 @@ function App() {
     setModalMessage(message);
     setModalOnConfirm(onConfirm || undefined);
     setIsModalOpen(true);
-  };
+  }
 
   // Function to close the custom modal
   const closeModal = () => {
@@ -140,6 +145,31 @@ function App() {
   const handleLogout = () => {
     console.log('Logging out...');
     setCurrentPage('login'); // Redirect to login page
+  };
+
+  // Function to navigate to the Fees page
+  const handleGoToFees = () => {
+    setCurrentPage('fees');
+  };
+
+  // Function to navigate to the Study Material page
+  const handleGoToStudyMaterial = () => {
+    setCurrentPage('studyMaterial');
+  };
+
+  // Function to navigate to the Bonafide Certificate page
+  const handleGoToBonafide = () => {
+    setCurrentPage('bonafide');
+  };
+
+  // Function to navigate to the Scholarship page
+  const handleGoToScholarship = () => {
+    setCurrentPage('scholarship');
+  };
+
+  // Function to navigate back to the dashboard
+  const handleBackToDashboard = () => {
+    setCurrentPage('dashboard');
   };
 
   // --- Custom Modal Component ---
@@ -2144,7 +2174,7 @@ interface Notification {
       break;
     case 'attendance':
       content = <AttendancePage
-        onBackToDashboard={handleGoToHome} // Back to dashboard from attendance
+        onBackToDashboard={handleBackToDashboard}
         onGoToNotifications={handleGoToNotifications}
         onGoToHome={handleGoToHome}
         onGoToId={handleGoToId}
@@ -2154,7 +2184,7 @@ interface Notification {
       break;
     case 'assignment':
       content = <AssignmentPage
-        onBackToDashboard={handleGoToHome}
+        onBackToDashboard={handleBackToDashboard}
         onGoToNotifications={handleGoToNotifications}
         onGoToHome={handleGoToHome}
         onGoToId={handleGoToId}
@@ -2164,7 +2194,7 @@ interface Notification {
       break;
     case 'profile':
       content = <ProfilePage
-        onBackToDashboard={handleGoToHome}
+        onBackToDashboard={handleBackToDashboard}
         onGoToNotifications={handleGoToNotifications}
         onGoToHome={handleGoToHome}
         onGoToId={handleGoToId}
@@ -2175,7 +2205,7 @@ interface Notification {
       break;
     case 'id':
       content = <IDPage
-        onBackToDashboard={handleGoToHome}
+        onBackToDashboard={handleBackToDashboard}
         onGoToNotifications={handleGoToNotifications}
         onGoToHome={handleGoToHome}
         onGoToId={handleGoToId}
@@ -2185,7 +2215,7 @@ interface Notification {
       break;
     case 'result':
       content = <ResultPage
-        onBackToDashboard={handleGoToHome}
+        onBackToDashboard={handleBackToDashboard}
         onGoToNotifications={handleGoToNotifications}
         onGoToHome={handleGoToHome}
         onGoToId={handleGoToId}
@@ -2196,7 +2226,7 @@ interface Notification {
       break;
     case 'timetable':
       content = <TimetablePage
-        onBackToDashboard={handleGoToHome}
+        onBackToDashboard={handleBackToDashboard}
         onGoToNotifications={handleGoToNotifications}
         onGoToHome={handleGoToHome}
         onGoToId={handleGoToId}
@@ -2206,7 +2236,7 @@ interface Notification {
       break;
     case 'collegeGallery':
       content = <CollegeGalleryPage
-        onBackToDashboard={handleGoToHome}
+        onBackToDashboard={handleBackToDashboard}
         onGoToNotifications={handleGoToNotifications}
         onGoToHome={handleGoToHome}
         onGoToId={handleGoToId}
@@ -2216,7 +2246,7 @@ interface Notification {
       break;
     case 'aboutCollege':
       content = <AboutCollegePage
-        onBackToDashboard={handleGoToHome}
+        onBackToDashboard={handleBackToDashboard}
         onGoToNotifications={handleGoToNotifications}
         onGoToHome={handleGoToHome}
         onGoToId={handleGoToId}
@@ -2226,7 +2256,7 @@ interface Notification {
       break;
     case 'event':
       content = <EventPage
-        onBackToDashboard={handleGoToHome}
+        onBackToDashboard={handleBackToDashboard}
         onSelectEvent={handleSelectEvent}
         onGoToNotifications={handleGoToNotifications}
         onGoToHome={handleGoToHome}
@@ -2254,7 +2284,7 @@ interface Notification {
       break;
     case 'notifications':
       content = <NotificationsPage
-        onBackToDashboard={handleGoToHome}
+        onBackToDashboard={handleBackToDashboard}
         onSelectNotification={handleSelectNotification}
         onGoToNotifications={handleGoToNotifications} // Pass onGoToNotifications here
         onGoToHome={handleGoToHome}
@@ -2318,16 +2348,45 @@ interface Notification {
   }, [currentPage]);
 
   return (
-    <>
-      {content}
-      <Modal
-        isOpen={isModalOpen}
-        title={modalTitle}
-        message={modalMessage}
-        onClose={closeModal}
-        onConfirm={modalOnConfirm}
-      />
-    </>
+    <div className="min-h-screen bg-gray-100">
+      {currentPage === 'landing' && <LandingPage />}
+      {currentPage === 'login' && <LoginPage onLoginSuccess={handleLoginSuccess} onGoToForgotPassword={handleGoToForgotPassword} onGoToRegister={handleGoToRegister} />}
+      {currentPage === 'forgotPassword' && <ForgotPasswordPage onBackToLogin={handleBackToLogin} showModal={showModal} />}
+      {currentPage === 'register' && <RegisterPage onBackToLogin={handleBackToLogin} showModal={showModal} />}
+      {currentPage === 'dashboard' && <DashboardPage
+        onGoToAttendance={handleGoToAttendance}
+        onLogout={handleLogout}
+        onGoToAssignment={handleGoToAssignment}
+        onGoToResult={handleGoToResult}
+        onGoToTimetable={handleGoToTimetable}
+        onGoToCollegeGallery={handleGoToCollegeGallery}
+        onGoToAboutCollege={handleGoToAboutCollege}
+        onGoToEvent={handleGoToEvent}
+        onGoToNotifications={handleGoToNotifications}
+        onGoToHome={handleGoToHome}
+        onGoToId={handleGoToId}
+        onGoToWallet={handleGoToWallet}
+        onGoToProfile={handleGoToProfile}
+      />}
+      {currentPage === 'attendance' && <AttendancePage onBackToDashboard={handleBackToDashboard} onGoToNotifications={handleGoToNotifications} onGoToHome={handleGoToHome} onGoToId={handleGoToId} onGoToWallet={handleGoToWallet} onGoToProfile={handleGoToProfile} />}
+      {currentPage === 'assignment' && <AssignmentPage onBackToDashboard={handleBackToDashboard} onGoToNotifications={handleGoToNotifications} onGoToHome={handleGoToHome} onGoToId={handleGoToId} onGoToWallet={handleGoToWallet} onGoToProfile={handleGoToProfile} />}
+      {currentPage === 'result' && <ResultPage onBackToDashboard={handleBackToDashboard} onGoToNotifications={handleGoToNotifications} onGoToHome={handleGoToHome} onGoToId={handleGoToId} onGoToWallet={handleGoToWallet} onGoToProfile={handleGoToProfile} showModal={showModal} />}
+      {currentPage === 'timetable' && <TimetablePage onBackToDashboard={handleBackToDashboard} onGoToNotifications={handleGoToNotifications} onGoToHome={handleGoToHome} onGoToId={handleGoToId} onGoToWallet={handleGoToWallet} onGoToProfile={handleGoToProfile} />}
+      {currentPage === 'collegeGallery' && <CollegeGalleryPage onBackToDashboard={handleBackToDashboard} onGoToNotifications={handleGoToNotifications} onGoToHome={handleGoToHome} onGoToId={handleGoToId} onGoToWallet={handleGoToWallet} onGoToProfile={handleGoToProfile} />}
+      {currentPage === 'aboutCollege' && <AboutCollegePage onBackToDashboard={handleBackToDashboard} onGoToNotifications={handleGoToNotifications} onGoToHome={handleGoToHome} onGoToId={handleGoToId} onGoToWallet={handleGoToWallet} onGoToProfile={handleGoToProfile} />}
+      {currentPage === 'event' && <EventPage onBackToDashboard={handleBackToDashboard} onSelectEvent={handleSelectEvent} onGoToNotifications={handleGoToNotifications} onGoToHome={handleGoToHome} onGoToId={handleGoToId} onGoToWallet={handleGoToWallet} onGoToProfile={handleGoToProfile} />}
+      {currentPage === 'eventDetail' && selectedEvent && <EventDetailPage event={selectedEvent} onBackToEvents={handleBackToEvents} onGoToNotifications={handleGoToNotifications} onGoToHome={handleGoToHome} onGoToId={handleGoToId} onGoToWallet={handleGoToWallet} onGoToProfile={handleGoToProfile} />}
+      {currentPage === 'notifications' && <NotificationsPage onBackToDashboard={handleBackToDashboard} onSelectNotification={handleSelectNotification} onGoToNotifications={handleGoToNotifications} onGoToHome={handleGoToHome} onGoToId={handleGoToId} onGoToWallet={handleGoToWallet} onGoToProfile={handleGoToProfile} />}
+      {currentPage === 'notificationDetail' && selectedNotification && <NotificationDetailPage notification={selectedNotification} onBackToNotifications={handleBackToNotifications} onGoToNotifications={handleGoToNotifications} onGoToHome={handleGoToHome} onGoToId={handleGoToId} onGoToWallet={handleGoToWallet} onGoToProfile={handleGoToProfile} />}
+      {currentPage === 'id' && <IDPage onBackToDashboard={handleBackToDashboard} onGoToNotifications={handleGoToNotifications} onGoToHome={handleGoToHome} onGoToId={handleGoToId} onGoToWallet={handleGoToWallet} onGoToProfile={handleGoToProfile} />}
+      {currentPage === 'wallet' && <WalletPage onBackToDashboard={handleBackToDashboard} onGoToNotifications={handleGoToNotifications} onGoToHome={handleGoToHome} onGoToId={handleGoToId} onGoToWallet={handleGoToWallet} onGoToProfile={handleGoToProfile} walletBalance={1000} setWalletBalance={(callback) => {}} showModal={showModal} />}
+      {currentPage === 'profile' && <ProfilePage onBackToDashboard={handleBackToDashboard} onGoToNotifications={handleGoToNotifications} onGoToHome={handleGoToHome} onGoToId={handleGoToId} onGoToWallet={handleGoToWallet} onGoToProfile={handleGoToProfile} showModal={showModal} />}
+      {currentPage === 'fees' && <FeesPage onBackToDashboard={handleBackToDashboard} onGoToNotifications={handleGoToNotifications} onGoToHome={handleGoToHome} onGoToId={handleGoToId} onGoToWallet={handleGoToWallet} onGoToProfile={handleGoToProfile} showModal={showModal} />}
+      {currentPage === 'studyMaterial' && <StudyMaterialPage onBackToDashboard={handleBackToDashboard} onGoToNotifications={handleGoToNotifications} onGoToHome={handleGoToHome} onGoToId={handleGoToId} onGoToWallet={handleGoToWallet} onGoToProfile={handleGoToProfile} showModal={showModal} />}
+      {currentPage === 'bonafide' && <BonafideCertificatePage onBackToDashboard={handleBackToDashboard} onGoToNotifications={handleGoToNotifications} onGoToHome={handleGoToHome} onGoToId={handleGoToId} onGoToWallet={handleGoToWallet} onGoToProfile={handleGoToProfile} showModal={showModal} />}
+      {currentPage === 'scholarship' && <ScholarshipPage onBackToDashboard={handleBackToDashboard} onGoToNotifications={handleGoToNotifications} onGoToHome={handleGoToHome} onGoToId={handleGoToId} onGoToWallet={handleGoToWallet} onGoToProfile={handleGoToProfile} showModal={showModal} />}
+      <Modal isOpen={isModalOpen} title={modalTitle} message={modalMessage} onClose={closeModal} onConfirm={modalOnConfirm} />
+    </div>
   );
 }
 
