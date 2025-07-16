@@ -165,4 +165,4 @@ const StudyMaterialPage: React.FC<StudyMaterialPageProps> = ({
     );
 }
 
-export default StudyMaterialPage;
+export default StudyMaterialPage; 

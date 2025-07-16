@@ -23,14 +23,14 @@ const NavItem: React.FC<NavItemProps> = ({ icon, label, action }) => (
     </button>
 );
 
-const FeesPage: React.FC<FeesPageProps> = ({ 
-    onBackToDashboard, 
-    onGoToNotifications, 
-    onGoToHome, 
-    onGoToId, 
-    onGoToWallet, 
+const FeesPage: React.FC<FeesPageProps> = ({
+    onBackToDashboard,
+    onGoToNotifications,
+    onGoToHome,
+    onGoToId,
+    onGoToWallet,
     onGoToProfile,
-    showModal 
+    showModal
 }) => {
     const [activeTab, setActiveTab] = useState('pending'); // 'pending' or 'paid'
     const [showContent, setShowContent] = useState(false);
@@ -56,7 +56,7 @@ const FeesPage: React.FC<FeesPageProps> = ({
     return (
         <div className="min-h-screen bg-[#283452] flex flex-col">
             {/* Header */}
-            <div 
+            <div
                 onClick={() => setShowContent(true)}
                 className="bg-[#202A40] text-white p-4 flex items-center justify-between rounded-b-xl shadow-lg cursor-pointer"
             >

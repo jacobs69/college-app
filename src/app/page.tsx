@@ -5,9 +5,18 @@ import StudyMaterialPage from '@/app/study/page';
 import BonafideCertificatePage from '@/app/bonafide/page';
 import ScholarshipPage from '@/app/scholar/page';
 import WalletPage from '@/app/wallet/page';
+import LibraryPage from '@/app/library/page';
+
+type Assignment = {
+  subject: string;
+  title: string;
+  assignDate: string;
+  submissionDate: string;
+  submitted: boolean;
+};
 
 function App() {
-  // 'landing', 'login', 'forgotPassword', 'register', 'dashboard', 'attendance', 'assignment', 'result', 'timetable', 'collegeGallery', 'aboutCollege', 'event', 'eventDetail', 'notifications', 'notificationDetail', 'id', 'wallet', 'profile', 'fees', 'studyMaterial', 'bonafide', 'scholarship', 'wallet'
+  // 'landing', 'login', 'forgotPassword', 'register', 'dashboard', 'attendance', 'assignment', 'result', 'timetable', 'collegeGallery', 'aboutCollege', 'event', 'eventDetail', 'notifications', 'notificationDetail', 'id', 'wallet', 'profile', 'fees', 'studyMaterial', 'bonafide', 'scholarship', 'wallet', 'library'
   const [currentPage, setCurrentPage] = useState('landing');
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null); // State to hold selected event details
   const [selectedNotification, setSelectedNotification] = useState<Notification | null>(null); // State to hold selected notification details
@@ -17,6 +26,31 @@ function App() {
   const [modalMessage, setModalMessage] = useState('');
   const [modalTitle, setModalTitle] = useState('');
   const [modalOnConfirm, setModalOnConfirm] = useState<(() => void) | undefined>(undefined);
+
+  const [walletBalance, setWalletBalance] = useState(5000); // Initial wallet balance
+  const [assignments, setAssignments] = useState([
+    {
+      subject: 'Mathematics',
+      title: 'Surface Areas and Volumes',
+      assignDate: '10 Nov 20',
+      submissionDate: '10 Dec 20',
+      submitted: false,
+    },
+    {
+      subject: 'Science',
+      title: 'Structure of Atoms',
+      assignDate: '10 Oct 20',
+      submissionDate: '30 Oct 20',
+      submitted: false,
+    },
+    {
+      subject: 'English',
+      title: 'My Bestfriend Essay',
+      assignDate: '10 Sep 20',
+      submissionDate: '30 Sep 20',
+      submitted: true,
+    },
+  ]);
 
   // Function to show the custom modal
   const showModal = (title: string, message: string, onConfirm?: (() => void) | null) => {
@@ -172,6 +206,21 @@ function App() {
     setCurrentPage('dashboard');
   };
 
+  // Function to navigate to the Library page
+  const handleGoToLibrary = () => {
+    setCurrentPage('library');
+  };
+
+  // Function to navigate to the Assignments page
+  const handleGoToAssignments = () => {
+    setCurrentPage('assignments');
+  };
+
+  // Function to navigate to the Contact page
+  const handleGoToContact = () => {
+    setCurrentPage('contact');
+  };
+
   // --- Custom Modal Component ---
   interface ModalProps {
   isOpen: boolean;
@@ -253,7 +302,7 @@ function App() {
   onGoToRegister: () => void;
 }
   function LoginPage({ onLoginSuccess, onGoToForgotPassword, onGoToRegister }:LoginPageProps) {
-    const [email, setEmail] = useState('');
+    const [rollNo, setRollNo] = useState('');
     const [password, setPassword] = useState('');
 
     const handleLogin = (e: { preventDefault: () => void; }) => {
@@ -262,47 +311,46 @@ function App() {
     };
 
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#19255A] relative overflow-hidden" style={{background: 'linear-gradient(to bottom, #19255A 80%, #0B3C4D 100%)'}}>
-        {/* Background decorative icons */}
-        <div className="absolute top-8 left-8 text-white text-opacity-10 text-5xl md:text-7xl transform rotate-12 select-none pointer-events-none">&#128196;</div>
-        <div className="absolute top-1/4 right-1/4 text-white text-opacity-10 text-6xl md:text-8xl transform -rotate-45 select-none pointer-events-none">&#9998;</div>
-        <div className="absolute bottom-1/4 left-1/4 text-white text-opacity-10 text-6xl md:text-8xl transform rotate-30 select-none pointer-events-none">&#127891;</div>
-        <div className="absolute bottom-8 right-8 text-white text-opacity-10 text-5xl md:text-7xl transform -rotate-20 select-none pointer-events-none">&#9711;</div>
-
+      <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-[#19255A] relative overflow-hidden animate-fadein" style={{background: 'linear-gradient(to bottom, #19255A 100%, #19255A 100%)'}}>
+        {/* Background decorative icons (same as landing) */}
+        <div className="absolute top-8 left-8 text-white text-opacity-10 text-5xl md:text-7xl transform -rotate-12 select-none pointer-events-none">&#9776;</div>
+        <div className="absolute top-1/4 right-1/4 text-white text-opacity-10 text-6xl md:text-8xl transform -rotate-12 select-none pointer-events-none">&#9998;</div>
+        <div className="absolute bottom-1/4 left-1/4 text-white text-opacity-10 text-7xl md:text-9xl transform rotate-0 select-none pointer-events-none">&#128214;</div>
+        <div className="absolute bottom-8 right-8 text-white text-opacity-10 text-6xl md:text-8xl transform rotate-0 select-none pointer-events-none">&#128269;</div>
         {/* Login Card - Centered and Responsive */}
-        <div className="w-full max-w-md bg-white bg-opacity-95 rounded-2xl shadow-2xl px-6 py-8 flex flex-col items-center mx-auto">
-          {/* Logo - Outlined Hexagon with yellow dot (smaller, top of card) */}
+        <div className="relative w-full max-w-md bg-antiflashwhite rounded-2xl shadow-2xl px-8 py-10 flex flex-col items-center mx-auto border border-mountainmeadow z-10">
+          {/* Logo - Outlined Hexagon with teal dot (smaller, top of card) */}
           <div className="flex flex-col items-center mb-2 mt-0">
-            <svg className="w-10 h-10 mx-auto" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <polygon points="40,10 70,27 70,53 40,70 10,53 10,27" stroke="#FFD600" strokeWidth="6" fill="none" />
-              <circle cx="40" cy="30" r="7" fill="#FFD600" />
+            <svg className="w-12 h-12 mx-auto" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <polygon points="40,10 70,27 70,53 40,70 10,53 10,27" stroke="#2CC5A9" strokeWidth="6" fill="none" />
+              <circle cx="40" cy="30" r="7" fill="#2CC5A9" />
             </svg>
             {/* App Name under Logo */}
-            <h1 className="text-3xl font-extrabold text-yellow-400 mb-6 text-center drop-shadow-lg mt-2">Collegegram</h1>
+            <h1 className="text-3xl font-extrabold text-mountainmeadow mb-6 text-center drop-shadow-lg mt-2">Collegegram</h1>
           </div>
           {/* Login Form - Centered */}
           <form onSubmit={handleLogin} className="flex flex-col items-center w-full">
             <input
-              type="email"
-              id="email"
-              placeholder="Email ID:-"
-              className="w-full mb-4 px-4 py-3 rounded-lg bg-[#99C9FF] text-blue-900 text-base placeholder-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              type="text"
+              id="rollNo"
+              placeholder="Roll No (e.g., B20232637)"
+              className="w-full mb-4 px-4 py-3 rounded-lg bg-antiflashwhite text-bangladeshgreen text-base placeholder-bangladeshgreen focus:outline-none focus:ring-2 focus:ring-mountainmeadow shadow"
+              value={rollNo}
+              onChange={(e) => setRollNo(e.target.value)}
               required
             />
             <input
               type="password"
               id="password"
               placeholder="Password:-"
-              className="w-full mb-4 px-4 py-3 rounded-lg bg-[#99C9FF] text-blue-900 text-base placeholder-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow"
+              className="w-full mb-4 px-4 py-3 rounded-lg bg-antiflashwhite text-bangladeshgreen text-base placeholder-bangladeshgreen focus:outline-none focus:ring-2 focus:ring-mountainmeadow shadow"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
             <button
               type="submit"
-              className="w-full bg-[#99C9FF] text-[#19255A] font-bold text-lg py-2 rounded-lg shadow-md hover:bg-blue-300 transition-colors mb-3 mt-2"
+              className="w-full bg-gradient-to-r from-mountainmeadow to-caribbeangreen text-richblack font-bold text-lg py-2 rounded-lg shadow-md hover:from-bangladeshgreen hover:to-mint hover:scale-105 transition-all mb-3 mt-2"
             >
               Login
             </button>
@@ -311,21 +359,30 @@ function App() {
           <button
             type="button"
             onClick={onGoToForgotPassword}
-            className="text-[#99C9FF] hover:underline text-sm mb-1 bg-transparent border-none p-0 cursor-pointer"
+            className="text-mountainmeadow hover:underline text-sm mb-1 bg-transparent border-none p-0 cursor-pointer"
           >
             Forget Password?
           </button>
-          <span className="text-[#99C9FF] text-sm text-center block">
+          <span className="text-mountainmeadow text-sm text-center block">
             Don't have an account?{' '}
             <button
               type="button"
               onClick={onGoToRegister}
-              className="text-[#99C9FF] hover:underline bg-transparent border-none p-0 cursor-pointer"
+              className="text-mountainmeadow hover:underline bg-transparent border-none p-0 cursor-pointer"
             >
               Register
             </button>
           </span>
         </div>
+        {/* Add fade-in and logo animation keyframes if not already present */}
+        <style>{`
+          @keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
+          .animate-fadein { animation: fadein 1s ease; }
+          @keyframes logoBounce { 0% { transform: scale(0.7); opacity: 0; } 60% { transform: scale(1.1); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
+          .animate-logo-bounce { animation: logoBounce 1s cubic-bezier(0.68,-0.55,0.27,1.55); }
+          .animate-fadein-delay { animation: fadein 1s 0.7s ease both; }
+          .animate-fadein-delay2 { animation: fadein 1s 1.2s ease both; }
+        `}</style>
       </div>
     );
   }
@@ -352,23 +409,22 @@ function App() {
     };
 
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-[#19255A] relative overflow-hidden p-4" style={{background: 'linear-gradient(to bottom, #19255A 80%, #0B3C4D 100%)'}}>
-        {/* Background decorative icons (same as login) */}
-        <div className="absolute top-8 left-8 text-white text-opacity-10 text-5xl md:text-7xl transform rotate-12 select-none pointer-events-none">&#128196;</div>
-        <div className="absolute top-1/4 right-1/4 text-white text-opacity-10 text-6xl md:text-8xl transform -rotate-45 select-none pointer-events-none">&#9998;</div>
-        <div className="absolute bottom-1/4 left-1/4 text-white text-opacity-10 text-6xl md:text-8xl transform rotate-30 select-none pointer-events-none">&#127891;</div>
-        <div className="absolute bottom-8 right-8 text-white text-opacity-10 text-5xl md:text-7xl transform -rotate-20 select-none pointer-events-none">&#9711;</div>
-
+      <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-[#19255A] relative overflow-hidden animate-fadein" style={{background: 'linear-gradient(to bottom, #19255A 100%, #19255A 100%)'}}>
+        {/* Background decorative icons (same as landing) */}
+        <div className="absolute top-8 left-8 text-white text-opacity-10 text-5xl md:text-7xl transform -rotate-12 select-none pointer-events-none">&#9776;</div>
+        <div className="absolute top-1/4 right-1/4 text-white text-opacity-10 text-6xl md:text-8xl transform -rotate-12 select-none pointer-events-none">&#9998;</div>
+        <div className="absolute bottom-1/4 left-1/4 text-white text-opacity-10 text-7xl md:text-9xl transform rotate-0 select-none pointer-events-none">&#128214;</div>
+        <div className="absolute bottom-8 right-8 text-white text-opacity-10 text-6xl md:text-8xl transform rotate-0 select-none pointer-events-none">&#128269;</div>
         {/* Card with logo and form */}
-        <div className="w-full max-w-md bg-white bg-opacity-95 rounded-2xl shadow-2xl px-6 py-8 flex flex-col items-center mx-auto">
-          {/* Logo - Outlined Hexagon with yellow dot (small, top of card) */}
+        <div className="relative w-full max-w-md bg-antiflashwhite rounded-2xl shadow-2xl px-8 py-10 flex flex-col items-center mx-auto border border-mountainmeadow z-10">
+          {/* Logo - Outlined Hexagon with teal dot (small, top of card) */}
           <div className="flex flex-col items-center mb-2 mt-0">
-            <svg className="w-10 h-10 mx-auto" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <polygon points="40,10 70,27 70,53 40,70 10,53 10,27" stroke="#FFD600" strokeWidth="6" fill="none" />
-              <circle cx="40" cy="30" r="7" fill="#FFD600" />
+            <svg className="w-12 h-12 mx-auto" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <polygon points="40,10 70,27 70,53 40,70 10,53 10,27" stroke="#2CC5A9" strokeWidth="6" fill="none" />
+              <circle cx="40" cy="30" r="7" fill="#2CC5A9" />
             </svg>
             {/* App Name under Logo */}
-            <h1 className="text-3xl font-extrabold text-yellow-400 mb-6 text-center drop-shadow-lg mt-2">Collegegram</h1>
+            <h1 className="text-3xl font-extrabold text-mountainmeadow mb-6 text-center drop-shadow-lg mt-2">Collegegram</h1>
           </div>
           {/* Forgot Password Form Container */}
           <form onSubmit={handleSendResetEmail} className="bg-transparent p-0 rounded-xl w-full max-w-md">
@@ -379,33 +435,40 @@ function App() {
                 type="email"
                 id="reset-email"
                 placeholder="Enter your Email ID :-"
-                className="w-full p-4 rounded-lg bg-[#A7D9FF] text-blue-900 placeholder-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full p-4 rounded-lg bg-antiflashwhite text-bangladeshgreen placeholder-bangladeshgreen focus:outline-none focus:ring-2 focus:ring-mountainmeadow"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
             </div>
-
             {/* Send Reset Email Button */}
             <button
               type="submit"
-              className="w-full bg-[#A7D9FF] text-blue-900 font-bold py-3 px-6 rounded-lg shadow-lg hover:bg-blue-300 transition-colors duration-300 focus:outline-none focus:ring-4 focus:ring-blue-500"
+              className="w-full bg-gradient-to-r from-mountainmeadow to-caribbeangreen text-richblack font-bold py-3 px-6 rounded-lg shadow-lg hover:from-bangladeshgreen hover:to-mint hover:scale-105 transition-all focus:outline-none focus:ring-4 focus:ring-mountainmeadow"
             >
               Send Reset Email
             </button>
-
             {/* Back to Login Link */}
             <div className="text-center mt-6">
               <button
-                type="button" // Use type="button" to prevent form submission
+                type="button"
                 onClick={onBackToLogin}
-                className="text-[#63B3ED] hover:underline text-sm bg-transparent border-none p-0 cursor-pointer"
+                className="text-mountainmeadow hover:underline text-sm bg-transparent border-none p-0 cursor-pointer"
               >
                 Back to Login
               </button>
             </div>
           </form>
         </div>
+        {/* Add fade-in and logo animation keyframes if not already present */}
+        <style>{`
+          @keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
+          .animate-fadein { animation: fadein 1s ease; }
+          @keyframes logoBounce { 0% { transform: scale(0.7); opacity: 0; } 60% { transform: scale(1.1); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
+          .animate-logo-bounce { animation: logoBounce 1s cubic-bezier(0.68,-0.55,0.27,1.55); }
+          .animate-fadein-delay { animation: fadein 1s 0.7s ease both; }
+          .animate-fadein-delay2 { animation: fadein 1s 1.2s ease both; }
+        `}</style>
       </div>
     );
   }
@@ -416,7 +479,7 @@ function App() {
   showModal: (title: string, message: string) => void;
 }
   function RegisterPage({ onBackToLogin, showModal }:RegisterPageProps) {
-    const [email, setEmail] = useState('');
+    const [rollNo, setRollNo] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
@@ -426,51 +489,49 @@ function App() {
         showModal('Registration Error', "Passwords do not match!");
         return;
       }
-      console.log('Registering user with:', email, password);
+      console.log('Registering user with:', rollNo, password);
       // In a real application, you would make an API call here
       // to register the new user.
-      showModal('Registration Success', `User ${email} registered successfully!`); // For demonstration
-      setEmail('');
+      showModal('Registration Success', `User ${rollNo} registered successfully!`); // For demonstration
+      setRollNo('');
       setPassword('');
       setConfirmPassword('');
       onBackToLogin(); // Go back to login page after successful registration
     };
 
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-[#19255A] relative overflow-hidden p-4" style={{background: 'linear-gradient(to bottom, #19255A 80%, #0B3C4D 100%)'}}>
-        {/* Background decorative icons (same as login) */}
-        <div className="absolute top-8 left-8 text-white text-opacity-10 text-5xl md:text-7xl transform rotate-12 select-none pointer-events-none">&#128196;</div>
-        <div className="absolute top-1/4 right-1/4 text-white text-opacity-10 text-6xl md:text-8xl transform -rotate-45 select-none pointer-events-none">&#9998;</div>
-        <div className="absolute bottom-1/4 left-1/4 text-white text-opacity-10 text-6xl md:text-8xl transform rotate-30 select-none pointer-events-none">&#127891;</div>
-        <div className="absolute bottom-8 right-8 text-white text-opacity-10 text-5xl md:text-7xl transform -rotate-20 select-none pointer-events-none">&#9711;</div>
-
+      <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-[#19255A] relative overflow-hidden animate-fadein" style={{background: 'linear-gradient(to bottom, #19255A 100%, #19255A 100%)'}}>
+        {/* Background decorative icons (same as landing) */}
+        <div className="absolute top-8 left-8 text-white text-opacity-10 text-5xl md:text-7xl transform -rotate-12 select-none pointer-events-none">&#9776;</div>
+        <div className="absolute top-1/4 right-1/4 text-white text-opacity-10 text-6xl md:text-8xl transform -rotate-12 select-none pointer-events-none">&#9998;</div>
+        <div className="absolute bottom-1/4 left-1/4 text-white text-opacity-10 text-7xl md:text-9xl transform rotate-0 select-none pointer-events-none">&#128214;</div>
+        <div className="absolute bottom-8 right-8 text-white text-opacity-10 text-6xl md:text-8xl transform rotate-0 select-none pointer-events-none">&#128269;</div>
         {/* Card with logo and form */}
-        <div className="w-full max-w-md bg-white bg-opacity-95 rounded-2xl shadow-2xl px-6 py-8 flex flex-col items-center mx-auto">
-          {/* Logo - Outlined Hexagon with yellow dot (small, top of card) */}
+        <div className="relative w-full max-w-md bg-antiflashwhite rounded-2xl shadow-2xl px-8 py-10 flex flex-col items-center mx-auto border border-mountainmeadow z-10">
+          {/* Logo - Outlined Hexagon with teal dot (small, top of card) */}
           <div className="flex flex-col items-center mb-2 mt-0">
-            <svg className="w-10 h-10 mx-auto" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <polygon points="40,10 70,27 70,53 40,70 10,53 10,27" stroke="#FFD600" strokeWidth="6" fill="none" />
-              <circle cx="40" cy="30" r="7" fill="#FFD600" />
+            <svg className="w-12 h-12 mx-auto" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <polygon points="40,10 70,27 70,53 40,70 10,53 10,27" stroke="#2CC5A9" strokeWidth="6" fill="none" />
+              <circle cx="40" cy="30" r="7" fill="#2CC5A9" />
             </svg>
             {/* App Name under Logo */}
-            <h1 className="text-3xl font-extrabold text-yellow-400 mb-6 text-center drop-shadow-lg mt-2">Collegegram</h1>
+            <h1 className="text-3xl font-extrabold text-mountainmeadow mb-6 text-center drop-shadow-lg mt-2">Collegegram</h1>
           </div>
           {/* Register Form Container */}
           <form onSubmit={handleRegister} className="bg-transparent p-0 rounded-xl w-full max-w-md">
-            {/* Email Input */}
+            {/* Roll No Input */}
             <div className="mb-6">
-              <label htmlFor="register-email" className="sr-only">Email ID</label>
+              <label htmlFor="register-rollno" className="sr-only">Roll No</label>
               <input
-                type="email"
-                id="register-email"
-                placeholder="Email ID :-"
-                className="w-full p-4 rounded-lg bg-[#A7D9FF] text-blue-900 placeholder-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                type="text"
+                id="register-rollno"
+                placeholder="Roll No (e.g., B20232637)"
+                className="w-full p-4 rounded-lg bg-antiflashwhite text-bangladeshgreen placeholder-bangladeshgreen focus:outline-none focus:ring-2 focus:ring-mountainmeadow"
+                value={rollNo}
+                onChange={(e) => setRollNo(e.target.value)}
                 required
               />
             </div>
-
             {/* Password Input */}
             <div className="mb-6">
               <label htmlFor="register-password" className="sr-only">Password</label>
@@ -478,13 +539,12 @@ function App() {
                 type="password"
                 id="register-password"
                 placeholder="Password :-"
-                className="w-full p-4 rounded-lg bg-[#A7D9FF] text-blue-900 placeholder-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full p-4 rounded-lg bg-antiflashwhite text-bangladeshgreen placeholder-bangladeshgreen focus:outline-none focus:ring-2 focus:ring-mountainmeadow"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
             </div>
-
             {/* Confirm Password Input */}
             <div className="mb-8">
               <label htmlFor="confirm-password" className="sr-only">Confirm Password</label>
@@ -492,33 +552,40 @@ function App() {
                 type="password"
                 id="confirm-password"
                 placeholder="Confirm Password :-"
-                className="w-full p-4 rounded-lg bg-[#A7D9FF] text-blue-900 placeholder-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full p-4 rounded-lg bg-antiflashwhite text-bangladeshgreen placeholder-bangladeshgreen focus:outline-none focus:ring-2 focus:ring-mountainmeadow"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
               />
             </div>
-
             {/* Register Button */}
             <button
               type="submit"
-              className="w-full bg-[#A7D9FF] text-blue-900 font-bold py-3 px-6 rounded-lg shadow-lg hover:bg-blue-300 transition-colors duration-300 focus:outline-none focus:ring-4 focus:ring-blue-500"
+              className="w-full bg-gradient-to-r from-mountainmeadow to-caribbeangreen text-richblack font-bold py-3 px-6 rounded-lg shadow-lg hover:from-bangladeshgreen hover:to-mint hover:scale-105 transition-all focus:outline-none focus:ring-4 focus:ring-mountainmeadow"
             >
               Register
             </button>
-
             {/* Back to Login Link */}
             <div className="text-center mt-6">
               <button
                 type="button"
                 onClick={onBackToLogin}
-                className="text-[#63B3ED] hover:underline text-sm bg-transparent border-none p-0 cursor-pointer"
+                className="text-mountainmeadow hover:underline text-sm bg-transparent border-none p-0 cursor-pointer"
               >
                 Back to Login
               </button>
             </div>
           </form>
         </div>
+        {/* Add fade-in and logo animation keyframes if not already present */}
+        <style>{`
+          @keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
+          .animate-fadein { animation: fadein 1s ease; }
+          @keyframes logoBounce { 0% { transform: scale(0.7); opacity: 0; } 60% { transform: scale(1.1); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
+          .animate-logo-bounce { animation: logoBounce 1s cubic-bezier(0.68,-0.55,0.27,1.55); }
+          .animate-fadein-delay { animation: fadein 1s 0.7s ease both; }
+          .animate-fadein-delay2 { animation: fadein 1s 1.2s ease both; }
+        `}</style>
       </div>
     );
   }
@@ -538,9 +605,12 @@ function App() {
     onGoToId: () => void;
     onGoToWallet: () => void;
     onGoToProfile: () => void;
+    onGoToLibrary: () => void;
+    onGoToFees: () => void;
+    onGoToStudyMaterial: () => void;
   }
  
-  function DashboardPage({ onGoToAttendance, onLogout, onGoToAssignment, onGoToResult, onGoToTimetable, onGoToCollegeGallery, onGoToAboutCollege, onGoToEvent, onGoToNotifications, onGoToHome, onGoToId, onGoToWallet, onGoToProfile }:DashboardPageProps) {
+  function DashboardPage({ onGoToAttendance, onLogout, onGoToAssignment, onGoToResult, onGoToTimetable, onGoToCollegeGallery, onGoToAboutCollege, onGoToEvent, onGoToNotifications, onGoToHome, onGoToId, onGoToWallet, onGoToProfile, onGoToLibrary, onGoToFees, onGoToStudyMaterial }:DashboardPageProps) {
     const [showMenu, setShowMenu] = useState(false); // State for menu visibility
 
     // Placeholder data for classes
@@ -554,9 +624,9 @@ function App() {
 
     // Placeholder data for quick actions
     const quickActions = [
-      { icon: '💰', label: 'FEES' },
-      { icon: '📚', label: 'LIBRARY' },
-      { icon: '📝', label: 'STUDY MATERIAL' },
+      { icon: '💰', label: 'FEES', action: onGoToFees },
+      { icon: '📚', label: 'LIBRARY', action: onGoToLibrary },
+      { icon: '📝', label: 'STUDY MATERIAL', action: onGoToStudyMaterial },
       { icon: '🖼️', label: 'CLG GALLERY', action: onGoToCollegeGallery },
       { icon: '✅', label: 'ATTENDANCE', action: onGoToAttendance },
       { icon: '📊', label: 'RESULT', action: onGoToResult },
@@ -565,33 +635,125 @@ function App() {
 
     // Placeholder data for more actions
     const moreActions = [
-      { icon: '📜', label: 'BONAFIDE' },
-      { icon: '🎓', label: 'SCHOLARSHIP' },
-      { icon: 'ℹ️', label: 'ABOUT COLLEGE', action: onGoToAboutCollege },
-      { icon: '✍️', label: 'ASSIGNMENT', action: onGoToAssignment },
-      { icon: '🗓️', label: 'EVENT', action: onGoToEvent },
+      { icon: '📝', label: 'BONAFIDE CERTIFICATE', action: handleGoToBonafide },
+      { icon: '📝', label: 'ASSIGNMENTS', action: handleGoToAssignments },
+      { icon: '🏫', label: 'ABOUT COLLEGE', action: onGoToAboutCollege },
+      { icon: '🎉', label: 'EVENTS', action: onGoToEvent },
+      { icon: '🎓', label: 'SCHOLARSHIP', action: handleGoToScholarship }
     ];
 
     // Reusable ActionButton Component
     interface ActionButtonProps {
-      icon: React.ReactNode;     // If you're passing JSX like <IconComponent />
+      icon: React.ReactNode;
       label: string;
       action: () => void;
     }
     const ActionButton = ({ icon, label, action }:ActionButtonProps) => (
       <button
-        className="flex-none flex flex-col items-center justify-center p-2 w-24 h-24 bg-blue-700 rounded-full shadow-md text-white text-center text-xs hover:bg-blue-600 transition-colors duration-200"
+        className="flex-none flex flex-col items-center justify-center p-2 w-24 h-24 bg-antiflashwhite/70 border-2 border-mountainmeadow rounded-3xl shadow-xl text-bangladeshgreen text-center text-xs backdrop-blur-lg transition-transform duration-200 hover:scale-110 hover:shadow-2xl hover:bg-mountainmeadow/80 hover:text-richblack group"
         onClick={action}
       >
-        <span className="text-3xl mb-1">{icon}</span>
-        <span>{label}</span>
+        <span className="text-3xl mb-1 group-hover:animate-bounce">{icon}</span>
+        <span className="font-semibold tracking-wide">{label}</span>
       </button>
     );
 
     return (
-      <div className="min-h-screen bg-[#283452] flex flex-col pb-20"> {/* Added pb-20 for bottom nav bar spacing */}
-        {/* Embedded CSS for hiding scrollbar */}
+      <div className="min-h-screen flex flex-col pb-20 bg-[#19255A] relative overflow-hidden animate-fadein" style={{background: 'linear-gradient(to bottom, #19255A 100%, #19255A 100%)', fontFamily: 'Inter, Poppins, Montserrat, sans-serif'}}>
+        {/* Background decorative icons (same as login/landing) */}
+        <div className="absolute top-8 left-8 text-white text-opacity-10 text-5xl md:text-7xl transform -rotate-12 select-none pointer-events-none">&#9776;</div>
+        <div className="absolute top-1/4 right-1/4 text-white text-opacity-10 text-6xl md:text-8xl transform -rotate-12 select-none pointer-events-none">&#9998;</div>
+        <div className="absolute bottom-1/4 left-1/4 text-white text-opacity-10 text-7xl md:text-9xl transform rotate-0 select-none pointer-events-none">&#128214;</div>
+        <div className="absolute bottom-8 right-8 text-white text-opacity-10 text-6xl md:text-8xl transform rotate-0 select-none pointer-events-none">&#128269;</div>
+        {/* Top Section: User Info */}
+        <div className="bg-darkgreen/80 backdrop-blur-lg text-antiflashwhite p-6 pb-4 md:p-8 flex flex-col items-center md:items-start rounded-b-3xl shadow-2xl relative">
+          <div className="flex items-center w-full max-w-4xl mx-auto mb-6">
+            <div className="bg-mountainmeadow rounded-full w-16 h-16 flex items-center justify-center text-3xl font-bold text-richblack mr-4 shadow-lg">
+              U
+            </div>
+            <div>
+              <h2 className="text-3xl md:text-4xl font-extrabold bg-gradient-to-r from-mountainmeadow to-caribbeangreen bg-clip-text text-transparent drop-shadow-lg">JAI ARUN KANTHARIA</h2>
+              <p className="text-base md:text-lg text-mint font-medium">B20232637 SEMESTER 4</p>
+              <p className="text-base md:text-lg text-mint font-medium">COURSE:-BSCIT Year:-TY</p>
+            </div>
+          </div>
+
+          {/* Menu Button */}
+          <div className="absolute top-4 right-4">
+            <button
+              onClick={() => setShowMenu(!showMenu)}
+              className="text-antiflashwhite text-3xl p-2 rounded-full hover:bg-mountainmeadow hover:text-richblack focus:outline-none focus:ring-2 focus:ring-mountainmeadow transition-all"
+            >
+              &#8943;
+            </button>
+            {showMenu && (
+              <div className="absolute right-0 mt-2 w-48 bg-antiflashwhite rounded-2xl shadow-lg py-1 z-20">
+                <button
+                  onClick={onLogout}
+                  className="block w-full text-left px-4 py-2 text-sm text-richblack hover:bg-mountainmeadow hover:text-antiflashwhite rounded-xl"
+                >
+                  Log Out
+                </button>
+              </div>
+            )}
+          </div>
+
+          <h3 className="text-2xl md:text-3xl font-extrabold mb-4 w-full max-w-4xl mx-auto bg-gradient-to-r from-mountainmeadow to-caribbeangreen bg-clip-text text-transparent drop-shadow-lg tracking-wide">Today's Classes</h3>
+          <div className="flex flex-row flex-nowrap overflow-x-auto gap-4 w-full max-w-4xl mx-auto pb-4 hide-scrollbar">
+            {classes.map((cls, index) => (
+              <div key={index} className="flex-none w-72 bg-antiflashwhite/80 backdrop-blur-lg text-bangladeshgreen p-5 rounded-3xl shadow-xl border-2 border-mountainmeadow hover:scale-105 hover:shadow-2xl transition-transform duration-200">
+                <div className="font-bold text-lg mb-2">Class Teacher: {cls.teacher}</div>
+                <div className="mb-1">Subject: <span className="font-semibold">{cls.subject}</span></div>
+                <div>Timing: <span className="font-semibold">{cls.timing}</span></div>
+              </div>
+            ))}
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-4xl mx-auto mt-6">
+            <div className="bg-mountainmeadow/90 backdrop-blur-lg text-richblack p-4 rounded-3xl shadow-xl flex items-center justify-center text-2xl font-bold hover:scale-105 hover:shadow-2xl transition-transform duration-200">
+              <span className="mr-2">&#128100;</span> Attendance
+            </div>
+            <div className="bg-caribbeangreen/90 backdrop-blur-lg text-richblack p-4 rounded-3xl shadow-xl flex items-center justify-center text-2xl font-bold hover:scale-105 hover:shadow-2xl transition-transform duration-200">
+              <span className="mr-2">&#128184;</span> Fees Due
+            </div>
+          </div>
+        </div>
+
+        {/* Quick Actions Section */}
+        <div className="bg-darkgreen/80 backdrop-blur-lg text-antiflashwhite p-6 pt-0 md:p-8 md:pt-0 mt-6 rounded-3xl mx-auto w-full max-w-4xl shadow-2xl">
+          <h3 className="text-2xl md:text-3xl font-extrabold mb-4 bg-gradient-to-r from-mountainmeadow to-caribbeangreen bg-clip-text text-transparent drop-shadow-lg tracking-wide">Quick Actions</h3>
+          <div className="flex flex-row flex-nowrap overflow-x-auto hide-scrollbar gap-4 w-full pb-4">
+            {quickActions.map((action, index) => (
+              <ActionButton key={index} icon={action.icon} label={action.label} action={action.action??(()=>{})} />
+            ))}
+          </div>
+        </div>
+
+        {/* More Actions Section */}
+        <div className="bg-darkgreen/80 backdrop-blur-lg text-antiflashwhite p-6 pt-0 md:p-8 md:pt-0 mt-6 rounded-3xl mx-auto w-full max-w-4xl shadow-2xl">
+          <h3 className="text-2xl md:text-3xl font-extrabold mb-4 bg-gradient-to-r from-mountainmeadow to-caribbeangreen bg-clip-text text-transparent drop-shadow-lg tracking-wide">More Actions</h3>
+          <div className="flex flex-row flex-nowrap overflow-x-auto hide-scrollbar gap-4 w-full pb-4">
+            {moreActions.map((action, index) => (
+              <ActionButton key={index} icon={action.icon} label={action.label} action={action.action??(()=>{})} />
+            ))}
+          </div>
+        </div>
+
+        <div className="fixed bottom-0 left-0 right-0 bg-antiflashwhite/90 backdrop-blur-lg shadow-lg p-3 flex justify-around items-center border-t border-mountainmeadow z-50">
+          <NavItem icon="🏠" label="Home" action={onGoToHome} />
+          <NavItem icon="🔔" label="Notifications" action={onGoToNotifications} />
+          <NavItem icon="🆔" label="ID" action={onGoToId} />
+          <NavItem icon="💳" label="Wallet" action={onGoToWallet} />
+          <NavItem icon="👤" label="Profile" action={onGoToProfile} />
+        </div>
+        {/* Add fade-in and logo animation keyframes if not already present */}
         <style>{`
+          @keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
+          .animate-fadein { animation: fadein 1s ease; }
+          @keyframes logoBounce { 0% { transform: scale(0.7); opacity: 0; } 60% { transform: scale(1.1); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
+          .animate-logo-bounce { animation: logoBounce 1s cubic-bezier(0.68,-0.55,0.27,1.55); }
+          .animate-fadein-delay { animation: fadein 1s 0.7s ease both; }
+          .animate-fadein-delay2 { animation: fadein 1s 1.2s ease both; }
           /* Hide scrollbar for Chrome, Safari and Opera */
           .hide-scrollbar::-webkit-scrollbar {
             display: none;
@@ -602,92 +764,6 @@ function App() {
             scrollbar-width: none;  /* Firefox */
           }
         `}</style>
-
-        {/* Top Section: User Info */}
-        <div className="bg-[#202A40] text-white p-6 pb-4 md:p-8 flex flex-col items-center md:items-start rounded-b-xl shadow-lg relative"> {/* Added relative for menu positioning */}
-          <div className="flex items-center w-full max-w-4xl mx-auto mb-6">
-            <div className="bg-gray-400 rounded-full w-16 h-16 flex items-center justify-center text-3xl font-bold mr-4">
-              U {/* Placeholder for user initial/avatar */}
-            </div>
-            <div>
-              <h2 className="text-2xl md:text-3xl font-bold">JAI ARUN KANTHARIA</h2>
-              <p className="text-sm md:text-base text-gray-300">B20232637 SEMESTER 4</p>
-              <p className="text-sm md:text-base text-gray-300">COURSE:-BSCIT Year:-TY</p>
-            </div>
-          </div>
-
-          {/* Menu Button */}
-          <div className="absolute top-4 right-4">
-            <button
-              onClick={() => setShowMenu(!showMenu)}
-              className="text-white text-3xl p-2 rounded-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              &#8943; {/* Horizontal ellipsis icon */}
-            </button>
-            {showMenu && (
-              <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-20">
-                <button
-                  onClick={onLogout}
-                  className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-red-600"
-                >
-                  Log Out
-                </button>
-                {/* Add more menu items here if needed */}
-              </div>
-            )}
-          </div>
-
-          <h3 className="text-xl md:text-2xl font-semibold mb-4 w-full max-w-4xl mx-auto">Today's Classes</h3>
-          {/* Classes Horizontal Scroll Container */}
-          <div className="flex flex-row flex-nowrap overflow-x-auto hide-scrollbar gap-4 w-full max-w-4xl mx-auto pb-4">
-            {classes.map((cls, index) => (
-              <div key={index} className="flex-none w-72 bg-yellow-400 text-blue-900 p-5 rounded-xl shadow-md">
-                <div className="font-bold text-lg mb-2">Class Teacher: {cls.teacher}</div>
-                <div className="mb-1">Subject: <span className="font-semibold">{cls.subject}</span></div>
-                <div>Timing: <span className="font-semibold">{cls.timing}</span></div>
-              </div>
-            ))}
-          </div>
-
-          {/* Summary Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-4xl mx-auto mt-6">
-            <div className="bg-blue-700 text-white p-4 rounded-lg shadow-md flex items-center justify-center text-2xl font-bold">
-              <span className="mr-2">&#128100;</span> Attendance
-            </div>
-            <div className="bg-blue-700 text-white p-4 rounded-lg shadow-md flex items-center justify-center text-2xl font-bold">
-              <span className="mr-2">&#128184;</span> Fees Due
-            </div>
-          </div>
-        </div>
-
-        {/* Quick Actions Section */}
-        <div className="bg-[#202A40] text-white p-6 pt-0 md:p-8 md:pt-0 mt-4 rounded-xl mx-auto w-full max-w-4xl shadow-lg">
-          <h3 className="text-xl md:text-2xl font-semibold mb-4">Quick Actions</h3>
-          <div className="flex flex-row flex-nowrap overflow-x-auto hide-scrollbar gap-4 w-full pb-4">
-            {quickActions.map((action, index) => (
-              <ActionButton key={index} icon={action.icon} label={action.label} action={action.action??(()=>{})} />
-            ))}
-          </div>
-        </div>
-
-        {/* More Actions Section */}
-        <div className="bg-[#202A40] text-white p-6 pt-0 md:p-8 md:pt-0 mt-4 rounded-xl mx-auto w-full max-w-4xl shadow-lg">
-          <h3 className="text-xl md:text-2xl font-semibold mb-4">More Actions</h3>
-          <div className="flex flex-row flex-nowrap overflow-x-auto hide-scrollbar gap-4 w-full pb-4">
-            {moreActions.map((action, index) => (
-              <ActionButton key={index} icon={action.icon} label={action.label} action={action.action??(()=>{})} />
-            ))}
-          </div>
-        </div>
-
-        {/* Bottom Navigation Bar */}
-        <div className="fixed bottom-0 left-0 right-0 bg-white shadow-lg p-3 flex justify-around items-center border-t border-gray-200 z-50">
-          <NavItem icon="🏠" label="Home" action={onGoToHome} />
-          <NavItem icon="🔔" label="Notifications" action={onGoToNotifications} />
-          <NavItem icon="🆔" label="ID" action={onGoToId} />
-          <NavItem icon="💳" label="Wallet" action={onGoToWallet} />
-          <NavItem icon="👤" label="Profile" action={onGoToProfile} />
-        </div>
       </div>
     );
   }
@@ -782,6 +858,10 @@ function App() {
       setCurrentDate(prevDate => new Date(prevDate.getFullYear(), prevDate.getMonth() + 1, 1));
     };
 
+
+    function onGoToLibrary(): void {
+      throw new Error('Function not implemented.');
+    }
 
     return (
       <div className="min-h-screen bg-[#61C2A5] flex flex-col relative pb-20"> {/* Light green background */}
@@ -965,79 +1045,6 @@ function App() {
     );
   }
 
-  // --- AssignmentPage Component (Internal to App) ---
-  interface AssignmentPageProps {
-  onBackToDashboard: () => void;
-  onGoToNotifications: () => void;
-  onGoToHome: () => void;
-  onGoToId: () => void;
-  onGoToWallet: () => void;
-  onGoToProfile: () => void;
-}
-  function AssignmentPage({ onBackToDashboard, onGoToNotifications, onGoToHome, onGoToId, onGoToWallet, onGoToProfile }:AssignmentPageProps) {
-    const assignments = [
-      {
-        subject: 'Mathematics',
-        title: 'Surface Areas and Volumes',
-        assignDate: '10 Nov 20',
-        submissionDate: '10 Dec 20',
-        submitted: false,
-      },
-      {
-        subject: 'Science',
-        title: 'Structure of Atoms',
-        assignDate: '10 Oct 20',
-        submissionDate: '30 Oct 20',
-        submitted: false, // Assuming not submitted based on image
-      },
-      {
-        subject: 'English',
-        title: 'My Bestfriend Essay',
-        assignDate: '10 Sep 20',
-        submissionDate: '30 Sep 20',
-        submitted: true, // Assuming submitted as there's no button in the image
-      },
-    ];
-
-    return (
-      <div className="min-h-screen bg-[#283452] flex flex-col pb-20"> {/* Dark blue background */}
-        {/* Top Bar */}
-        <div className="bg-[#202A40] text-white p-4 flex items-center shadow-md">
-          <button onClick={onBackToDashboard} className="text-white text-2xl px-2 mr-4">&#8592;</button> {/* Back arrow */}
-          <h1 className="text-xl font-semibold">Assignment</h1>
-        </div>
-
-        {/* Assignment List */}
-        <div className="p-4 flex-grow">
-          {assignments.map((assignment, index) => (
-            <div key={index} className="bg-white rounded-xl shadow-lg p-4 mb-4">
-              <h3 className="text-lg font-bold text-gray-800 mb-1">{assignment.subject}</h3>
-              <p className="text-gray-700 mb-2">{assignment.title}</p>
-              <div className="flex justify-between text-sm text-gray-600 mb-3">
-                <span>Assign Date: {assignment.assignDate}</span>
-                <span>Last Submission Date: {assignment.submissionDate}</span>
-              </div>
-              {!assignment.submitted && (
-                <button className="w-full bg-blue-700 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors duration-200">
-                  TO BE SUBMITTED
-                </button>
-              )}
-            </div>
-          ))}
-        </div>
-
-        {/* Bottom Navigation Bar (consistent with Dashboard) */}
-        <div className="fixed bottom-0 left-0 right-0 bg-white shadow-lg p-3 flex justify-around items-center border-t border-gray-200 z-50">
-          <NavItem icon="🏠" label="Home" action={onGoToHome} />
-          <NavItem icon="🔔" label="Notifications" action={onGoToNotifications} />
-          <NavItem icon="🆔" label="ID" action={onGoToId} />
-          <NavItem icon="💳" label="Wallet" action={onGoToWallet} />
-          <NavItem icon="👤" label="Profile" action={onGoToProfile} />
-        </div>
-      </div>
-    );
-  }
-
   // --- ProfilePage Component (Internal to App) ---
   interface ProfilePageProps {
   onBackToDashboard: () => void;
@@ -1089,6 +1096,10 @@ function App() {
     );
 
     const handleProfileOptionClick = newFunction();
+
+    function onGoToLibrary(): void {
+      throw new Error('Function not implemented.');
+    }
 
     return (
       <div className="min-h-screen bg-[#283452] flex flex-col relative pb-20">
@@ -1253,6 +1264,10 @@ function App() {
       qrCode: 'https://placehold.co/150x150/000000/FFFFFF?text=QR+Code', // Placeholder for QR code
     };
 
+    function onGoToLibrary(): void {
+      throw new Error('Function not implemented.');
+    }
+
     return (
       <div className="min-h-screen bg-[#283452] flex flex-col items-center justify-center p-4 relative pb-20">
         {/* Top Bar */}
@@ -1369,6 +1384,10 @@ function App() {
       // possibly using a library like jsPDF or by sending data to a backend
       // service that generates the PDF.
     };
+
+    function onGoToLibrary(): void {
+      throw new Error('Function not implemented.');
+    }
 
     return (
       <div className="min-h-screen bg-[#ADD8E6] flex flex-col pb-20"> {/* Light blue background */}
@@ -1567,6 +1586,10 @@ function App() {
       'https://placehold.co/200x300/63B3ED/000000?text=Gallery+Image+8&font=lora',
     ];
 
+    function onGoToLibrary(): void {
+      throw new Error('Function not implemented.');
+    }
+
     return (
       <div className="min-h-screen bg-[#283452] flex flex-col pb-20"> {/* Dark blue background */}
         {/* Embedded CSS for hiding scrollbar */}
@@ -1627,6 +1650,10 @@ function App() {
   }
 
   function AboutCollegePage({ onBackToDashboard, onGoToNotifications, onGoToHome, onGoToId, onGoToWallet, onGoToProfile }: AboutCollegePageProps) {
+    function onGoToLibrary(): void {
+      throw new Error('Function not implemented.');
+    }
+
     return (
       <div className="min-h-screen bg-white flex flex-col pb-20"> {/* White background */}
         {/* Top Bar */}
@@ -1724,6 +1751,10 @@ function App() {
       },
     ];
 
+    function onGoToLibrary(): void {
+      throw new Error('Function not implemented.');
+    }
+
     return (
       <div className="min-h-screen bg-[#283452] flex flex-col pb-20"> {/* Dark blue background */}
         {/* Top Bar */}
@@ -1785,6 +1816,10 @@ function App() {
           <button onClick={onBackToEvents} className="mt-4 bg-blue-700 text-white py-2 px-4 rounded-lg">Back to Events</button>
         </div>
       );
+    }
+
+    function onGoToLibrary(): void {
+      throw new Error('Function not implemented.');
     }
 
     return (
@@ -1895,6 +1930,10 @@ interface Notification {
       },
     ];
 
+    function onGoToLibrary(): void {
+      throw new Error('Function not implemented.');
+    }
+
     return (
       <div className="min-h-screen bg-[#283452] flex flex-col pb-20"> {/* Dark blue background */}
         {/* Embedded CSS for hiding scrollbar */}
@@ -1973,6 +2012,10 @@ interface Notification {
           <button onClick={onBackToNotifications} className="mt-4 bg-blue-700 text-white py-2 px-4 rounded-lg">Back to Notifications</button>
         </div>
       );
+    }
+
+    function onGoToLibrary(): void {
+      throw new Error('Function not implemented.');
     }
 
     return (
@@ -2079,6 +2122,10 @@ interface Notification {
       { date: '22 JAN', day: 'Friday', subject: 'Drawing', time: '09:00 AM' },
     ];
 
+    function onGoToLibrary(): void {
+      throw new Error('Function not implemented.');
+    }
+
     return (
       <div className="min-h-screen bg-[#283452] flex flex-col pb-20"> {/* Dark blue background */}
         {/* Embedded CSS for hiding scrollbar */}
@@ -2170,6 +2217,9 @@ interface Notification {
         onGoToId={handleGoToId}
         onGoToWallet={handleGoToWallet}
         onGoToProfile={handleGoToProfile}
+        onGoToLibrary={handleGoToLibrary}
+        onGoToFees={handleGoToFees}
+        onGoToStudyMaterial={handleGoToStudyMaterial}
       />;
       break;
     case 'attendance':
@@ -2184,6 +2234,8 @@ interface Notification {
       break;
     case 'assignment':
       content = <AssignmentPage
+        assignments={assignments}
+        setAssignments={setAssignments}
         onBackToDashboard={handleBackToDashboard}
         onGoToNotifications={handleGoToNotifications}
         onGoToHome={handleGoToHome}
@@ -2200,7 +2252,7 @@ interface Notification {
         onGoToId={handleGoToId}
         onGoToWallet={handleGoToWallet}
         onGoToProfile={handleGoToProfile}
-        showModal={showModal} // Pass showModal to ProfilePage
+        showModal={showModal}
       />;
       break;
     case 'id':
@@ -2221,7 +2273,7 @@ interface Notification {
         onGoToId={handleGoToId}
         onGoToWallet={handleGoToWallet}
         onGoToProfile={handleGoToProfile}
-        showModal={showModal} // Pass showModal to ResultPage
+        showModal={showModal}
       />;
       break;
     case 'timetable':
@@ -2286,7 +2338,7 @@ interface Notification {
       content = <NotificationsPage
         onBackToDashboard={handleBackToDashboard}
         onSelectNotification={handleSelectNotification}
-        onGoToNotifications={handleGoToNotifications} // Pass onGoToNotifications here
+        onGoToNotifications={handleGoToNotifications}
         onGoToHome={handleGoToHome}
         onGoToId={handleGoToId}
         onGoToWallet={handleGoToWallet}
@@ -2309,18 +2361,72 @@ interface Notification {
       }
       break;
     case 'wallet':
-      content = (
-        <div className="min-h-screen flex flex-col items-center justify-center bg-gray-800 text-white">
-          <h1 className="text-4xl font-bold mb-4">🚧 {currentPage.toUpperCase()} Page Under Construction 🚧</h1>
-          <p className="text-lg mb-8">This page is still being built. Please check back later!</p>
-          <button
-            onClick={handleGoToHome}
-            className="px-6 py-3 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-300"
-          >
-            Go to Dashboard
-          </button>
-        </div>
-      );
+      content = <WalletPage
+        onBackToDashboard={handleBackToDashboard}
+        onGoToNotifications={handleGoToNotifications}
+        onGoToHome={handleGoToHome}
+        onGoToId={handleGoToId}
+        onGoToWallet={handleGoToWallet}
+        onGoToProfile={handleGoToProfile}
+        walletBalance={walletBalance}
+        setWalletBalance={setWalletBalance}
+        showModal={showModal}
+      />;
+      break;
+    case 'bonafide':
+      content = <BonafideCertificatePage
+        onBackToDashboard={handleBackToDashboard}
+        onGoToNotifications={handleGoToNotifications}
+        onGoToHome={handleGoToHome}
+        onGoToId={handleGoToId}
+        onGoToWallet={handleGoToWallet}
+        onGoToProfile={handleGoToProfile}
+        showModal={showModal}
+      />;
+      break;
+    case 'library':
+      content = <LibraryPage
+        onBackToDashboard={handleGoToHome}
+        onGoToNotifications={handleGoToNotifications}
+        onGoToHome={handleGoToHome}
+        onGoToId={handleGoToId}
+        onGoToWallet={handleGoToWallet}
+        onGoToProfile={handleGoToProfile}
+        showModal={showModal}
+      />;
+      break;
+    case 'scholarship':
+      content = <ScholarshipPage
+        onBackToDashboard={handleBackToDashboard}
+        onGoToNotifications={handleGoToNotifications}
+        onGoToHome={handleGoToHome}
+        onGoToId={handleGoToId}
+        onGoToWallet={handleGoToWallet}
+        onGoToProfile={handleGoToProfile}
+        showModal={showModal}
+      />;
+      break;
+    case 'studyMaterial':
+      content = <StudyMaterialPage
+        onBackToDashboard={handleBackToDashboard}
+        onGoToNotifications={handleGoToNotifications}
+        onGoToHome={handleGoToHome}
+        onGoToId={handleGoToId}
+        onGoToWallet={handleGoToWallet}
+        onGoToProfile={handleGoToProfile}
+        showModal={showModal}
+      />;
+      break;
+    case 'fees':
+      content = <FeesPage
+        onBackToDashboard={handleBackToDashboard}
+        onGoToNotifications={handleGoToNotifications}
+        onGoToHome={handleGoToHome}
+        onGoToId={handleGoToId}
+        onGoToWallet={handleGoToWallet}
+        onGoToProfile={handleGoToProfile}
+        showModal={showModal}
+      />;
       break;
     default:
       content = (
@@ -2349,43 +2455,16 @@ interface Notification {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      {currentPage === 'landing' && <LandingPage />}
-      {currentPage === 'login' && <LoginPage onLoginSuccess={handleLoginSuccess} onGoToForgotPassword={handleGoToForgotPassword} onGoToRegister={handleGoToRegister} />}
-      {currentPage === 'forgotPassword' && <ForgotPasswordPage onBackToLogin={handleBackToLogin} showModal={showModal} />}
-      {currentPage === 'register' && <RegisterPage onBackToLogin={handleBackToLogin} showModal={showModal} />}
-      {currentPage === 'dashboard' && <DashboardPage
-        onGoToAttendance={handleGoToAttendance}
-        onLogout={handleLogout}
-        onGoToAssignment={handleGoToAssignment}
-        onGoToResult={handleGoToResult}
-        onGoToTimetable={handleGoToTimetable}
-        onGoToCollegeGallery={handleGoToCollegeGallery}
-        onGoToAboutCollege={handleGoToAboutCollege}
-        onGoToEvent={handleGoToEvent}
-        onGoToNotifications={handleGoToNotifications}
-        onGoToHome={handleGoToHome}
-        onGoToId={handleGoToId}
-        onGoToWallet={handleGoToWallet}
-        onGoToProfile={handleGoToProfile}
-      />}
-      {currentPage === 'attendance' && <AttendancePage onBackToDashboard={handleBackToDashboard} onGoToNotifications={handleGoToNotifications} onGoToHome={handleGoToHome} onGoToId={handleGoToId} onGoToWallet={handleGoToWallet} onGoToProfile={handleGoToProfile} />}
-      {currentPage === 'assignment' && <AssignmentPage onBackToDashboard={handleBackToDashboard} onGoToNotifications={handleGoToNotifications} onGoToHome={handleGoToHome} onGoToId={handleGoToId} onGoToWallet={handleGoToWallet} onGoToProfile={handleGoToProfile} />}
-      {currentPage === 'result' && <ResultPage onBackToDashboard={handleBackToDashboard} onGoToNotifications={handleGoToNotifications} onGoToHome={handleGoToHome} onGoToId={handleGoToId} onGoToWallet={handleGoToWallet} onGoToProfile={handleGoToProfile} showModal={showModal} />}
-      {currentPage === 'timetable' && <TimetablePage onBackToDashboard={handleBackToDashboard} onGoToNotifications={handleGoToNotifications} onGoToHome={handleGoToHome} onGoToId={handleGoToId} onGoToWallet={handleGoToWallet} onGoToProfile={handleGoToProfile} />}
-      {currentPage === 'collegeGallery' && <CollegeGalleryPage onBackToDashboard={handleBackToDashboard} onGoToNotifications={handleGoToNotifications} onGoToHome={handleGoToHome} onGoToId={handleGoToId} onGoToWallet={handleGoToWallet} onGoToProfile={handleGoToProfile} />}
-      {currentPage === 'aboutCollege' && <AboutCollegePage onBackToDashboard={handleBackToDashboard} onGoToNotifications={handleGoToNotifications} onGoToHome={handleGoToHome} onGoToId={handleGoToId} onGoToWallet={handleGoToWallet} onGoToProfile={handleGoToProfile} />}
-      {currentPage === 'event' && <EventPage onBackToDashboard={handleBackToDashboard} onSelectEvent={handleSelectEvent} onGoToNotifications={handleGoToNotifications} onGoToHome={handleGoToHome} onGoToId={handleGoToId} onGoToWallet={handleGoToWallet} onGoToProfile={handleGoToProfile} />}
-      {currentPage === 'eventDetail' && selectedEvent && <EventDetailPage event={selectedEvent} onBackToEvents={handleBackToEvents} onGoToNotifications={handleGoToNotifications} onGoToHome={handleGoToHome} onGoToId={handleGoToId} onGoToWallet={handleGoToWallet} onGoToProfile={handleGoToProfile} />}
-      {currentPage === 'notifications' && <NotificationsPage onBackToDashboard={handleBackToDashboard} onSelectNotification={handleSelectNotification} onGoToNotifications={handleGoToNotifications} onGoToHome={handleGoToHome} onGoToId={handleGoToId} onGoToWallet={handleGoToWallet} onGoToProfile={handleGoToProfile} />}
-      {currentPage === 'notificationDetail' && selectedNotification && <NotificationDetailPage notification={selectedNotification} onBackToNotifications={handleBackToNotifications} onGoToNotifications={handleGoToNotifications} onGoToHome={handleGoToHome} onGoToId={handleGoToId} onGoToWallet={handleGoToWallet} onGoToProfile={handleGoToProfile} />}
-      {currentPage === 'id' && <IDPage onBackToDashboard={handleBackToDashboard} onGoToNotifications={handleGoToNotifications} onGoToHome={handleGoToHome} onGoToId={handleGoToId} onGoToWallet={handleGoToWallet} onGoToProfile={handleGoToProfile} />}
-      {currentPage === 'wallet' && <WalletPage onBackToDashboard={handleBackToDashboard} onGoToNotifications={handleGoToNotifications} onGoToHome={handleGoToHome} onGoToId={handleGoToId} onGoToWallet={handleGoToWallet} onGoToProfile={handleGoToProfile} walletBalance={1000} setWalletBalance={(callback) => {}} showModal={showModal} />}
-      {currentPage === 'profile' && <ProfilePage onBackToDashboard={handleBackToDashboard} onGoToNotifications={handleGoToNotifications} onGoToHome={handleGoToHome} onGoToId={handleGoToId} onGoToWallet={handleGoToWallet} onGoToProfile={handleGoToProfile} showModal={showModal} />}
-      {currentPage === 'fees' && <FeesPage onBackToDashboard={handleBackToDashboard} onGoToNotifications={handleGoToNotifications} onGoToHome={handleGoToHome} onGoToId={handleGoToId} onGoToWallet={handleGoToWallet} onGoToProfile={handleGoToProfile} showModal={showModal} />}
-      {currentPage === 'studyMaterial' && <StudyMaterialPage onBackToDashboard={handleBackToDashboard} onGoToNotifications={handleGoToNotifications} onGoToHome={handleGoToHome} onGoToId={handleGoToId} onGoToWallet={handleGoToWallet} onGoToProfile={handleGoToProfile} showModal={showModal} />}
-      {currentPage === 'bonafide' && <BonafideCertificatePage onBackToDashboard={handleBackToDashboard} onGoToNotifications={handleGoToNotifications} onGoToHome={handleGoToHome} onGoToId={handleGoToId} onGoToWallet={handleGoToWallet} onGoToProfile={handleGoToProfile} showModal={showModal} />}
-      {currentPage === 'scholarship' && <ScholarshipPage onBackToDashboard={handleBackToDashboard} onGoToNotifications={handleGoToNotifications} onGoToHome={handleGoToHome} onGoToId={handleGoToId} onGoToWallet={handleGoToWallet} onGoToProfile={handleGoToProfile} showModal={showModal} />}
-      <Modal isOpen={isModalOpen} title={modalTitle} message={modalMessage} onClose={closeModal} onConfirm={modalOnConfirm} />
+      {content}
+      {isModalOpen && (
+        <Modal
+          isOpen={isModalOpen}
+          title={modalTitle}
+          message={modalMessage}
+          onClose={closeModal}
+          onConfirm={modalOnConfirm}
+        />
+      )}
     </div>
   );
 }
@@ -2407,5 +2486,100 @@ function NavItem({ icon, label, action }:NavItemProps) {
       <span className="text-2xl mb-1">{icon}</span>
       <span>{label}</span>
     </button>
+  );
+}
+
+// --- AssignmentPage Component (Internal to App) ---
+interface AssignmentPageProps {
+  assignments: Assignment[];
+  setAssignments: React.Dispatch<React.SetStateAction<Assignment[]>>;
+  onBackToDashboard: () => void;
+  onGoToNotifications: () => void;
+  onGoToHome: () => void;
+  onGoToId: () => void;
+  onGoToWallet: () => void;
+  onGoToProfile: () => void;
+}
+
+function AssignmentPage({
+  assignments,
+  setAssignments,
+  onBackToDashboard,
+  onGoToNotifications,
+  onGoToHome,
+  onGoToId,
+  onGoToWallet,
+  onGoToProfile
+}: AssignmentPageProps) {
+  // Filter assignments to be done
+  const assignmentsToBeDone = assignments.filter(a => !a.submitted);
+
+  return (
+    <div className="min-h-screen bg-[#283452] flex flex-col pb-20">
+      {/* Top Bar */}
+      <div className="bg-[#202A40] text-white p-4 flex items-center shadow-md">
+        <button
+          onClick={onBackToDashboard}
+          className="text-white text-2xl px-2 mr-4"
+        >
+          &#8592;
+        </button>
+        <h1 className="text-xl font-semibold">Assignment</h1>
+      </div>
+
+      {/* Assignments To Be Done Section */}
+      {assignmentsToBeDone.length > 0 && (
+        <div className="p-4">
+          <h2 className="text-lg font-bold text-yellow-400 mb-2">Assignments To Be Done</h2>
+          {assignmentsToBeDone.map((assignment, idx) => (
+            <div key={idx} className="bg-red-100 border-l-4 border-red-500 rounded-xl shadow p-4 mb-3">
+              <h3 className="text-md font-bold text-red-800 mb-1">{assignment.subject}</h3>
+              <p className="text-gray-700 mb-1">{assignment.title}</p>
+              <span className="text-xs text-gray-600">Due: {assignment.submissionDate}</span>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Assignment List */}
+      <div className="p-4 flex-grow">
+        {assignments.map((assignment, index) => (
+          <div
+            key={index}
+            className="bg-white rounded-xl shadow-lg p-4 mb-4"
+          >
+            <div className="flex justify-between items-center">
+              <h3 className="text-lg font-bold text-gray-800 mb-1">{assignment.subject}</h3>
+              <span className="text-xs text-gray-500">
+                Last Submission Date: {assignment.submissionDate}
+              </span>
+            </div>
+            <p className="text-gray-700 mb-2">{assignment.title}</p>
+            <div className="text-sm text-gray-600 mb-3">
+              Assign Date: {assignment.assignDate}
+            </div>
+            {!assignment.submitted && (
+              <button className="w-full bg-blue-700 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors duration-200">
+                TO BE SUBMITTED
+              </button>
+            )}
+            {assignment.submitted && (
+              <button className="w-full bg-green-700 text-white font-bold py-2 px-4 rounded-lg" disabled>
+                SUBMITTED
+              </button>
+            )}
+          </div>
+        ))}
+      </div>
+
+      {/* Bottom Navigation Bar */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white shadow-lg p-3 flex justify-around items-center border-t border-gray-200 z-50">
+        <NavItem icon="🏠" label="Home" action={onGoToHome} />
+        <NavItem icon="🔔" label="Notifications" action={onGoToNotifications} />
+        <NavItem icon="🆔" label="ID" action={onGoToId} />
+        <NavItem icon="💳" label="Wallet" action={onGoToWallet} />
+        <NavItem icon="👤" label="Profile" action={onGoToProfile} />
+      </div>
+    </div>
   );
 }
