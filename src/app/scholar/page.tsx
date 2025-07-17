@@ -43,11 +43,19 @@ export default function ScholarshipPage() {
     },
   ];
 
+  // Define local functions for navigation and modal actions
+  function onBackToDashboard() { /* implement navigation or leave as placeholder */ }
+  function onGoToNotifications() { /* implement navigation or leave as placeholder */ }
+  function onGoToWallet() { /* implement navigation or leave as placeholder */ }
+  function onGoToProfile() { /* implement navigation or leave as placeholder */ }
+  function onGoToHome() { /* implement navigation or leave as placeholder */ }
+  function onGoToId() { /* implement navigation or leave as placeholder */ }
+
   return (
     <div className="min-h-screen bg-[#283452] flex flex-col pb-20">
       {/* Top Bar */}
       <div className="bg-[#202A40] text-white p-4 flex items-center shadow-md">
-        <button onClick={() => {}} className="text-white text-2xl px-2 mr-4">&#8592;</button>
+        <button onClick={onBackToDashboard} className="text-white text-2xl px-2 mr-4">&#8592;</button>
         <h1 className="text-xl font-semibold">Scholarship</h1>
       </div>
       {/* Content */}
@@ -82,23 +90,23 @@ export default function ScholarshipPage() {
       </div>
       {/* Bottom Navigation Bar */}
       <div className="fixed bottom-0 left-0 right-0 bg-white shadow-lg p-3 flex justify-around items-center border-t border-gray-200 z-50">
-        <button onClick={() => {}} className="flex flex-col items-center">
+        <button onClick={onGoToHome} className="flex flex-col items-center">
           <span className="text-2xl">🏠</span>
           <span className="text-xs mt-1">Home</span>
         </button>
-        <button onClick={() => {}} className="flex flex-col items-center">
+        <button onClick={onGoToNotifications} className="flex flex-col items-center">
           <span className="text-2xl">🔔</span>
           <span className="text-xs mt-1">Notifications</span>
         </button>
-        <button onClick={() => {}} className="flex flex-col items-center">
+        <button onClick={onGoToId} className="flex flex-col items-center">
           <span className="text-2xl">🆔</span>
           <span className="text-xs mt-1">ID</span>
         </button>
-        <button onClick={() => {}} className="flex flex-col items-center">
+        <button onClick={onGoToWallet} className="flex flex-col items-center">
           <span className="text-2xl">💳</span>
           <span className="text-xs mt-1">Wallet</span>
         </button>
-        <button onClick={() => {}} className="flex flex-col items-center">
+        <button onClick={onGoToProfile} className="flex flex-col items-center">
           <span className="text-2xl">👤</span>
           <span className="text-xs mt-1">Profile</span>
         </button>

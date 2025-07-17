@@ -82,29 +82,19 @@ export default function BonafideCertificatePage() {
         }
     };
 
-    function onBackToDashboard(): void {
+    // Define local functions for navigation and modal actions
+    function onBackToDashboard() { /* implement navigation or leave as placeholder */ }
+    function onGoToHome() {
         throw new Error('Function not implemented.');
     }
 
-    function onGoToHome(): void {
+    function onGoToId() {
         throw new Error('Function not implemented.');
     }
 
-    function onGoToId(): void {
-        throw new Error('Function not implemented.');
-    }
-
-    function onGoToNotifications(): void {
-        throw new Error('Function not implemented.');
-    }
-
-    function onGoToWallet(): void {
-        throw new Error('Function not implemented.');
-    }
-
-    function onGoToProfile(): void {
-        throw new Error('Function not implemented.');
-    }
+    function onGoToNotifications() { /* implement navigation or leave as placeholder */ }
+    function onGoToWallet() { /* implement navigation or leave as placeholder */ }
+    function onGoToProfile() { /* implement navigation or leave as placeholder */ }
 
     return (
         <div className="min-h-screen bg-[#283452] flex flex-col">
@@ -192,6 +182,6 @@ export default function BonafideCertificatePage() {
     );
 };
 
-function showModal() {
+function showModal(_p0: string, p1: string, p0?: () => void) {
     throw new Error('Function not implemented.');
 }

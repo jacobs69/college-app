@@ -34,11 +34,19 @@ export default function LibraryPage() {
 
     const myBorrowedBooks = allBooks.filter(book => book.status === 'Checked Out');
 
+    // Define local functions for navigation and modal actions
+    function onBackToDashboard() { /* implement navigation or leave as placeholder */ }
+    function onGoToNotifications() { /* implement navigation or leave as placeholder */ }
+    function onGoToWallet() { /* implement navigation or leave as placeholder */ }
+    function onGoToProfile() { /* implement navigation or leave as placeholder */ }
+    function onGoToHome() { /* implement navigation or leave as placeholder */ }
+    function onGoToId() { /* implement navigation or leave as placeholder */ }
+
     return (
         <div className="min-h-screen bg-[#283452] flex flex-col">
             {/* Header */}
             <div className="bg-[#202A40] text-white p-4 flex items-center justify-between rounded-b-xl shadow-lg">
-                <button onClick={() => { /* onBackToDashboard */ }} className="text-white text-2xl">
+                <button onClick={onBackToDashboard} className="text-white text-2xl">
                     &#8592; {/* Left arrow */}
                 </button>
                 <h2 className="text-xl font-bold">Library</h2>
@@ -120,11 +128,11 @@ export default function LibraryPage() {
 
             {/* Bottom Navigation Bar */}
             <div className="fixed bottom-0 left-0 right-0 bg-white shadow-lg p-3 flex justify-around items-center border-t border-gray-200 z-50">
-                <NavItem icon="🏠" label="Home" action={() => { /* onGoToHome */ }} />
-                <NavItem icon="🔔" label="Notifications" action={() => { /* onGoToNotifications */ }} />
-                <NavItem icon="🆔" label="ID" action={() => { /* onGoToId */ }} />
-                <NavItem icon="💳" label="Wallet" action={() => { /* onGoToWallet */ }} />
-                <NavItem icon="👤" label="Profile" action={() => { /* onGoToProfile */ }} />
+                <NavItem icon="🏠" label="Home" action={onGoToHome} />
+                <NavItem icon="🔔" label="Notifications" action={onGoToNotifications} />
+                <NavItem icon="🆔" label="ID" action={onGoToId} />
+                <NavItem icon="💳" label="Wallet" action={onGoToWallet} />
+                <NavItem icon="👤" label="Profile" action={onGoToProfile} />
             </div>
         </div>
     );
