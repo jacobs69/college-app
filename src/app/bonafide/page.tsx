@@ -72,7 +72,7 @@ const BonafideCertificatePage: React.FC<BonafideCertificatePageProps> = ({
         showModal('Generating PDF', 'Please wait while your certificate is being generated...', null);
 
         try {
-            const canvas = await (window.html2canvas as (element: HTMLElement, options?: any) => Promise<HTMLCanvasElement>)(certDiv, { scale: 2 }); // Increase scale for better resolution
+            const canvas = await (window.html2canvas as (element: HTMLElement, options?: Record<string, unknown>) => Promise<HTMLCanvasElement>)(certDiv, { scale: 2 }); // Increase scale for better resolution
             const imgData = canvas.toDataURL('image/png');
             const pdf = new window.jspdf.jsPDF('p', 'mm', 'a4'); // 'p' for portrait, 'mm' for millimeters, 'a4' for A4 size
 

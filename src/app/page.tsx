@@ -254,7 +254,7 @@ function App() {
   }
 
   // --- LandingPage Component (internal to App) ---
-  interface LandingPageProps {}
+  type LandingPageProps = object;
 
   function LandingPage({}: LandingPageProps) {
     // Add fade-in and logo animation using Tailwind and a keyframes style
@@ -359,7 +359,7 @@ function App() {
             Forget Password?
           </button>
           <span className="text-mountainmeadow text-sm text-center block">
-            Don't have an account?{' '}
+            Don&apos;t have an account?{' '}
             <button
               type="button"
               onClick={onGoToRegister}
@@ -589,7 +589,6 @@ function App() {
   interface DashboardPageProps {
     onGoToAttendance: () => void;
     onLogout: () => void;
-    onGoToAssignment: () => void;
     onGoToResult: () => void;
     onGoToTimetable: () => void;
     onGoToCollegeGallery: () => void;
@@ -605,7 +604,7 @@ function App() {
     onGoToStudyMaterial: () => void;
   }
  
-  function DashboardPage({ onGoToAttendance, onLogout, onGoToAssignment, onGoToResult, onGoToTimetable, onGoToCollegeGallery, onGoToAboutCollege, onGoToEvent, onGoToNotifications, onGoToHome, onGoToId, onGoToWallet, onGoToProfile, onGoToLibrary, onGoToFees, onGoToStudyMaterial }:DashboardPageProps) {
+  function DashboardPage({ onGoToAttendance, onLogout, onGoToResult, onGoToTimetable, onGoToCollegeGallery, onGoToAboutCollege, onGoToEvent, onGoToNotifications, onGoToHome, onGoToId, onGoToWallet, onGoToProfile, onGoToLibrary, onGoToFees, onGoToStudyMaterial }:DashboardPageProps) {
     const [showMenu, setShowMenu] = useState(false); // State for menu visibility
 
     // Placeholder data for classes
@@ -2201,7 +2200,6 @@ interface Notification {
       content = <DashboardPage
         onGoToAttendance={handleGoToAttendance}
         onLogout={handleLogout}
-        onGoToAssignment={handleGoToAssignment}
         onGoToResult={handleGoToResult}
         onGoToTimetable={handleGoToTimetable}
         onGoToCollegeGallery={handleGoToCollegeGallery}
