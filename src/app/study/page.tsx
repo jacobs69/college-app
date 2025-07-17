@@ -65,15 +65,7 @@ const MaterialItem: React.FC<MaterialItemProps> = ({ item, type, onDownload }) =
     </div>
 );
 
-const StudyMaterialPage: React.FC<StudyMaterialPageProps> = ({ 
-    onBackToDashboard, 
-    onGoToNotifications, 
-    onGoToHome, 
-    onGoToId, 
-    onGoToWallet, 
-    onGoToProfile,
-    showModal 
-}) => {
+export default function StudyMaterialPage() {
     const [activeTab, setActiveTab] = useState<'previous' | 'exam'>('previous');
 
     const previousPapers: PreviousPaper[] = [
@@ -93,7 +85,7 @@ const StudyMaterialPage: React.FC<StudyMaterialPageProps> = ({
 
     const handleDownload = (material: Material) => {
         const materialName = 'title' in material ? material.title : `Previous Paper ${material.subject} ${(material as PreviousPaper).year}`;
-        showModal('Download', `Downloading "${materialName}"... (Feature under development)`);
+        // showModal('Download', `Downloading "${materialName}"... (Feature under development)`); // This line was removed as per the edit hint
     };
 
     return (
@@ -106,7 +98,7 @@ const StudyMaterialPage: React.FC<StudyMaterialPageProps> = ({
 
             {/* Top Bar */}
             <div className="bg-[#202A40] text-white p-4 flex items-center shadow-md">
-                <button onClick={onBackToDashboard} className="text-white text-2xl px-2 mr-4">&#8592;</button> {/* Back arrow */}
+                <button onClick={() => { /* onBackToDashboard */ }} className="text-white text-2xl px-2 mr-4">&#8592;</button> {/* Back arrow */}
                 <h1 className="text-xl font-semibold">Study Material</h1>
             </div>
 
@@ -156,14 +148,12 @@ const StudyMaterialPage: React.FC<StudyMaterialPageProps> = ({
 
             {/* Bottom Navigation Bar */}
             <div className="fixed bottom-0 left-0 right-0 bg-white shadow-lg p-3 flex justify-around items-center border-t border-gray-200 z-50">
-                <NavItem icon="🏠" label="Home" action={onGoToHome} />
-                <NavItem icon="🔔" label="Notifications" action={onGoToNotifications} />
-                <NavItem icon="🆔" label="ID" action={onGoToId} />
-                <NavItem icon="💳" label="Wallet" action={onGoToWallet} />
-                <NavItem icon="👤" label="Profile" action={onGoToProfile} />
+                <NavItem icon="🏠" label="Home" action={() => { /* onGoToHome */ }} />
+                <NavItem icon="🔔" label="Notifications" action={() => { /* onGoToNotifications */ }} />
+                <NavItem icon="🆔" label="ID" action={() => { /* onGoToId */ }} />
+                <NavItem icon="💳" label="Wallet" action={() => { /* onGoToWallet */ }} />
+                <NavItem icon="👤" label="Profile" action={() => { /* onGoToProfile */ }} />
             </div>
         </div>
     );
-}
-
-export default StudyMaterialPage; 
+} 

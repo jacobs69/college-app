@@ -182,6 +182,6 @@ export default function BonafideCertificatePage() {
     );
 };
 
-function showModal(_p0: string, p1: string, p0?: () => void) {
+function showModal(_p0: string, _p1: string, _p2?: () => void) {
     throw new Error('Function not implemented.');
 }
