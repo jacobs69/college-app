@@ -1,16 +1,6 @@
 "use client";
 import { useRef } from 'react';
 
-interface BonafideCertificatePageProps {
-    onBackToDashboard: () => void;
-    onGoToNotifications: () => void;
-    onGoToHome: () => void;
-    onGoToId: () => void;
-    onGoToWallet: () => void;
-    onGoToProfile: () => void;
-    showModal: (title: string, message: string, onConfirm?: (() => void) | null) => void;
-}
-
 interface NavItemProps {
     icon: string;
     label: string;
@@ -24,15 +14,7 @@ const NavItem: React.FC<NavItemProps> = ({ icon, label, action }) => (
     </button>
 );
 
-const BonafideCertificatePage: React.FC<BonafideCertificatePageProps> = ({ 
-    onBackToDashboard, 
-    onGoToNotifications, 
-    onGoToHome, 
-    onGoToId, 
-    onGoToWallet, 
-    onGoToProfile,
-    showModal 
-}) => {
+export default function BonafideCertificatePage() {
     const certificateRef = useRef<HTMLDivElement>(null); // Create a ref for the certificate content
 
     // Dummy student data
@@ -69,7 +51,7 @@ const BonafideCertificatePage: React.FC<BonafideCertificatePageProps> = ({
             return;
         }
 
-        showModal('Generating PDF', 'Please wait while your certificate is being generated...', null);
+        showModal('Generating PDF', 'Please wait while your certificate is being generated...');
 
         try {
             const canvas = await (window.html2canvas as (element: HTMLElement, options?: Record<string, unknown>) => Promise<HTMLCanvasElement>)(certDiv, { scale: 2 }); // Increase scale for better resolution
@@ -99,6 +81,10 @@ const BonafideCertificatePage: React.FC<BonafideCertificatePageProps> = ({
             showModal('Download Error', 'Failed to generate PDF. Please try again.');
         }
     };
+
+    function onBackToDashboard(event: React.MouseEvent<HTMLButtonElement>): void {
+        throw new Error('Function not implemented.');
+    }
 
     return (
         <div className="min-h-screen bg-[#283452] flex flex-col">
@@ -186,4 +172,6 @@ const BonafideCertificatePage: React.FC<BonafideCertificatePageProps> = ({
     );
 };
 
-export default BonafideCertificatePage;
+function showModal(arg0: string, arg1: string, p0?: () => void) {
+    throw new Error('Function not implemented.');
+}

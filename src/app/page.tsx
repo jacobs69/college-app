@@ -2310,24 +2310,10 @@ interface Notification {
       />;
       break;
     case 'bonafide':
-      content = <BonafideCertificatePage
-        onBackToDashboard={handleBackToDashboard}
-        onGoToNotifications={handleGoToNotifications}
-        onGoToHome={handleGoToHome}
-        onGoToId={handleGoToId}
-        onGoToWallet={handleGoToWallet}
-        onGoToProfile={handleGoToProfile}
-        showModal={showModal}
-      />;
+      content = <BonafideCertificatePage />;
       break;
     case 'library':
-      content = <LibraryPage
-        onBackToDashboard={handleGoToHome}
-        onGoToNotifications={handleGoToNotifications}
-        onGoToHome={handleGoToHome}
-        onGoToId={handleGoToId}
-        onGoToWallet={handleGoToWallet}
-        onGoToProfile={handleGoToProfile} showModal={() => { throw new Error('Function not implemented.'); }} />;
+      content = <LibraryPage />;
       break;
     case 'scholarship':
       content = <ScholarshipPage

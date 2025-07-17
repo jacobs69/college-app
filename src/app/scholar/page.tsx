@@ -9,25 +9,7 @@ interface Scholarship {
   deadline: string;
 }
 
-interface ScholarshipPageProps {
-  onBackToDashboard: () => void;
-  onGoToNotifications: () => void;
-  onGoToHome: () => void;
-  onGoToId: () => void;
-  onGoToWallet: () => void;
-  onGoToProfile: () => void;
-  showModal: (title: string, message: string) => void;
-}
-
-const ScholarshipPage: React.FC<ScholarshipPageProps> = ({
-  onBackToDashboard,
-  onGoToNotifications,
-  onGoToHome,
-  onGoToId,
-  onGoToWallet,
-  onGoToProfile,
-  showModal
-}) => {
+export default function ScholarshipPage() {
   const [scholarships] = useState<Scholarship[]>([
     // ... existing scholarships ...
   ]);
@@ -65,7 +47,7 @@ const ScholarshipPage: React.FC<ScholarshipPageProps> = ({
     <div className="min-h-screen bg-[#283452] flex flex-col pb-20">
       {/* Top Bar */}
       <div className="bg-[#202A40] text-white p-4 flex items-center shadow-md">
-        <button onClick={onBackToDashboard} className="text-white text-2xl px-2 mr-4">&#8592;</button>
+        <button onClick={() => {}} className="text-white text-2xl px-2 mr-4">&#8592;</button>
         <h1 className="text-xl font-semibold">Scholarship</h1>
       </div>
       {/* Content */}
@@ -73,7 +55,7 @@ const ScholarshipPage: React.FC<ScholarshipPageProps> = ({
         <h2 className="text-2xl font-bold mb-4">Scholarship Information</h2>
         <button
           className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700"
-          onClick={() => showModal('Scholarship Info', 'This is a demo modal for scholarship information!')}
+          onClick={() => {}}
         >
           Show Scholarship Modal
         </button>
@@ -100,29 +82,27 @@ const ScholarshipPage: React.FC<ScholarshipPageProps> = ({
       </div>
       {/* Bottom Navigation Bar */}
       <div className="fixed bottom-0 left-0 right-0 bg-white shadow-lg p-3 flex justify-around items-center border-t border-gray-200 z-50">
-        <button onClick={onGoToHome} className="flex flex-col items-center">
+        <button onClick={() => {}} className="flex flex-col items-center">
           <span className="text-2xl">🏠</span>
           <span className="text-xs mt-1">Home</span>
         </button>
-        <button onClick={onGoToNotifications} className="flex flex-col items-center">
+        <button onClick={() => {}} className="flex flex-col items-center">
           <span className="text-2xl">🔔</span>
           <span className="text-xs mt-1">Notifications</span>
         </button>
-        <button onClick={onGoToId} className="flex flex-col items-center">
+        <button onClick={() => {}} className="flex flex-col items-center">
           <span className="text-2xl">🆔</span>
           <span className="text-xs mt-1">ID</span>
         </button>
-        <button onClick={onGoToWallet} className="flex flex-col items-center">
+        <button onClick={() => {}} className="flex flex-col items-center">
           <span className="text-2xl">💳</span>
           <span className="text-xs mt-1">Wallet</span>
         </button>
-        <button onClick={onGoToProfile} className="flex flex-col items-center">
+        <button onClick={() => {}} className="flex flex-col items-center">
           <span className="text-2xl">👤</span>
           <span className="text-xs mt-1">Profile</span>
         </button>
       </div>
     </div>
   );
-};
-
-export default ScholarshipPage; 
+} 

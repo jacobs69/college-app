@@ -1,16 +1,6 @@
 "use client";
 import { useState } from 'react';
 
-interface LibraryPageProps {
-    onBackToDashboard: () => void;
-    onGoToNotifications: () => void;
-    onGoToHome: () => void;
-    onGoToId: () => void;
-    onGoToWallet: () => void;
-    onGoToProfile: () => void;
-    showModal: (title: string, message: string) => void;
-}
-
 interface NavItemProps {
     icon: string;
     label: string;
@@ -24,15 +14,7 @@ const NavItem: React.FC<NavItemProps> = ({ icon, label, action }) => (
     </button>
 );
 
-const LibraryPage: React.FC<LibraryPageProps> = ({ 
-    onBackToDashboard, 
-    onGoToNotifications, 
-    onGoToHome, 
-    onGoToId, 
-    onGoToWallet, 
-    onGoToProfile,
-    showModal
-}) => {
+export default function LibraryPage() {
     const [activeTab, setActiveTab] = useState('search'); // 'search' or 'myBooks'
     const [searchTerm, setSearchTerm] = useState('');
 
@@ -56,7 +38,7 @@ const LibraryPage: React.FC<LibraryPageProps> = ({
         <div className="min-h-screen bg-[#283452] flex flex-col">
             {/* Header */}
             <div className="bg-[#202A40] text-white p-4 flex items-center justify-between rounded-b-xl shadow-lg">
-                <button onClick={onBackToDashboard} className="text-white text-2xl">
+                <button onClick={() => { /* onBackToDashboard */ }} className="text-white text-2xl">
                     &#8592; {/* Left arrow */}
                 </button>
                 <h2 className="text-xl font-bold">Library</h2>
@@ -83,7 +65,7 @@ const LibraryPage: React.FC<LibraryPageProps> = ({
                 <div className="flex-1 p-4 bg-[#283452] text-white">
                     <button
                         className="mb-4 px-6 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700"
-                        onClick={() => showModal('Library Info', 'This is a demo modal for library!')}
+                        onClick={() => { /* showModal */ }}
                     >
                         Show Library Modal
                     </button>
@@ -138,14 +120,12 @@ const LibraryPage: React.FC<LibraryPageProps> = ({
 
             {/* Bottom Navigation Bar */}
             <div className="fixed bottom-0 left-0 right-0 bg-white shadow-lg p-3 flex justify-around items-center border-t border-gray-200 z-50">
-                <NavItem icon="🏠" label="Home" action={onGoToHome} />
-                <NavItem icon="🔔" label="Notifications" action={onGoToNotifications} />
-                <NavItem icon="🆔" label="ID" action={onGoToId} />
-                <NavItem icon="💳" label="Wallet" action={onGoToWallet} />
-                <NavItem icon="👤" label="Profile" action={onGoToProfile} />
+                <NavItem icon="🏠" label="Home" action={() => { /* onGoToHome */ }} />
+                <NavItem icon="🔔" label="Notifications" action={() => { /* onGoToNotifications */ }} />
+                <NavItem icon="🆔" label="ID" action={() => { /* onGoToId */ }} />
+                <NavItem icon="💳" label="Wallet" action={() => { /* onGoToWallet */ }} />
+                <NavItem icon="👤" label="Profile" action={() => { /* onGoToProfile */ }} />
             </div>
         </div>
     );
-};
-
-export default LibraryPage; 
+} 
