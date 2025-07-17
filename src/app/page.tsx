@@ -96,11 +96,6 @@ function App() {
     setCurrentPage('attendance');
   };
 
-  // Function to navigate to the assignment page
-  const handleGoToAssignment = () => {
-    setCurrentPage('assignment');
-  };
-
   // Function to navigate to the result page
   const handleGoToResult = () => {
     setCurrentPage('result');
@@ -209,11 +204,6 @@ function App() {
   // Function to navigate to the Library page
   const handleGoToLibrary = () => {
     setCurrentPage('library');
-  };
-
-  // Function to navigate to the Assignments page
-  const handleGoToAssignments = () => {
-    setCurrentPage('assignments');
   };
 
   // --- Custom Modal Component ---
@@ -630,7 +620,7 @@ function App() {
     // Placeholder data for more actions
     const moreActions = [
       { icon: '📝', label: 'BONAFIDE CERTIFICATE', action: handleGoToBonafide },
-      { icon: '📝', label: 'ASSIGNMENTS', action: handleGoToAssignments },
+      { icon: '📝', label: 'ASSIGNMENTS', action: () => {} },
       { icon: '🏫', label: 'ABOUT COLLEGE', action: onGoToAboutCollege },
       { icon: '🎉', label: 'EVENTS', action: onGoToEvent },
       { icon: '🎓', label: 'SCHOLARSHIP', action: handleGoToScholarship }
@@ -692,7 +682,7 @@ function App() {
             )}
           </div>
 
-          <h3 className="text-2xl md:text-3xl font-extrabold mb-4 w-full max-w-4xl mx-auto bg-gradient-to-r from-mountainmeadow to-caribbeangreen bg-clip-text text-transparent drop-shadow-lg tracking-wide">Today's Classes</h3>
+          <h3 className="text-2xl md:text-3xl font-extrabold mb-4 w-full max-w-4xl mx-auto bg-gradient-to-r from-mountainmeadow to-caribbeangreen bg-clip-text text-transparent drop-shadow-lg tracking-wide">Today&apos;s Classes</h3>
           <div className="flex flex-row flex-nowrap overflow-x-auto gap-4 w-full max-w-4xl mx-auto pb-4 hide-scrollbar">
             {classes.map((cls, index) => (
               <div key={index} className="flex-none w-72 bg-antiflashwhite/80 backdrop-blur-lg text-bangladeshgreen p-5 rounded-3xl shadow-xl border-2 border-mountainmeadow hover:scale-105 hover:shadow-2xl transition-transform duration-200">
@@ -851,11 +841,6 @@ function App() {
     const goToNextMonth = () => {
       setCurrentDate(prevDate => new Date(prevDate.getFullYear(), prevDate.getMonth() + 1, 1));
     };
-
-
-    function onGoToLibrary(): void {
-      throw new Error('Function not implemented.');
-    }
 
     return (
       <div className="min-h-screen bg-[#61C2A5] flex flex-col relative pb-20"> {/* Light green background */}
@@ -1091,10 +1076,6 @@ function App() {
 
     const handleProfileOptionClick = newFunction();
 
-    function onGoToLibrary(): void {
-      throw new Error('Function not implemented.');
-    }
-
     return (
       <div className="min-h-screen bg-[#283452] flex flex-col relative pb-20">
         {/* Top Bar */}
@@ -1258,10 +1239,6 @@ function App() {
       qrCode: 'https://placehold.co/150x150/000000/FFFFFF?text=QR+Code', // Placeholder for QR code
     };
 
-    function onGoToLibrary(): void {
-      throw new Error('Function not implemented.');
-    }
-
     return (
       <div className="min-h-screen bg-[#283452] flex flex-col items-center justify-center p-4 relative pb-20">
         {/* Top Bar */}
@@ -1378,10 +1355,6 @@ function App() {
       // possibly using a library like jsPDF or by sending data to a backend
       // service that generates the PDF.
     };
-
-    function onGoToLibrary(): void {
-      throw new Error('Function not implemented.');
-    }
 
     return (
       <div className="min-h-screen bg-[#ADD8E6] flex flex-col pb-20"> {/* Light blue background */}
@@ -1580,10 +1553,6 @@ function App() {
       'https://placehold.co/200x300/63B3ED/000000?text=Gallery+Image+8&font=lora',
     ];
 
-    function onGoToLibrary(): void {
-      throw new Error('Function not implemented.');
-    }
-
     return (
       <div className="min-h-screen bg-[#283452] flex flex-col pb-20"> {/* Dark blue background */}
         {/* Embedded CSS for hiding scrollbar */}
@@ -1644,10 +1613,6 @@ function App() {
   }
 
   function AboutCollegePage({ onBackToDashboard, onGoToNotifications, onGoToHome, onGoToId, onGoToWallet, onGoToProfile }: AboutCollegePageProps) {
-    function onGoToLibrary(): void {
-      throw new Error('Function not implemented.');
-    }
-
     return (
       <div className="min-h-screen bg-white flex flex-col pb-20"> {/* White background */}
         {/* Top Bar */}
@@ -1745,10 +1710,6 @@ function App() {
       },
     ];
 
-    function onGoToLibrary(): void {
-      throw new Error('Function not implemented.');
-    }
-
     return (
       <div className="min-h-screen bg-[#283452] flex flex-col pb-20"> {/* Dark blue background */}
         {/* Top Bar */}
@@ -1810,10 +1771,6 @@ function App() {
           <button onClick={onBackToEvents} className="mt-4 bg-blue-700 text-white py-2 px-4 rounded-lg">Back to Events</button>
         </div>
       );
-    }
-
-    function onGoToLibrary(): void {
-      throw new Error('Function not implemented.');
     }
 
     return (
@@ -1924,10 +1881,6 @@ interface Notification {
       },
     ];
 
-    function onGoToLibrary(): void {
-      throw new Error('Function not implemented.');
-    }
-
     return (
       <div className="min-h-screen bg-[#283452] flex flex-col pb-20"> {/* Dark blue background */}
         {/* Embedded CSS for hiding scrollbar */}
@@ -2006,10 +1959,6 @@ interface Notification {
           <button onClick={onBackToNotifications} className="mt-4 bg-blue-700 text-white py-2 px-4 rounded-lg">Back to Notifications</button>
         </div>
       );
-    }
-
-    function onGoToLibrary(): void {
-      throw new Error('Function not implemented.');
     }
 
     return (
@@ -2115,10 +2064,6 @@ interface Notification {
       { date: '20 JAN', day: 'Wednesday', subject: 'Social Study', time: '09:00 AM' },
       { date: '22 JAN', day: 'Friday', subject: 'Drawing', time: '09:00 AM' },
     ];
-
-    function onGoToLibrary(): void {
-      throw new Error('Function not implemented.');
-    }
 
     return (
       <div className="min-h-screen bg-[#283452] flex flex-col pb-20"> {/* Dark blue background */}
