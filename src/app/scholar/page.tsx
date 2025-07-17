@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
 
 interface Scholarship {
   title: string;
@@ -29,14 +28,9 @@ const ScholarshipPage: React.FC<ScholarshipPageProps> = ({
   onGoToProfile,
   showModal
 }) => {
-  const router = useRouter();
-  const [modal, setModal] = useState<{ open: boolean; title: string; message: string }>(
-    { open: false, title: '', message: '' }
-  );
-
-  const scholarships: Scholarship[] = [
+  const [scholarships, setScholarships] = useState<Scholarship[]>([
     // ... existing scholarships ...
-  ];
+  ]);
 
   // New: Scholarship Exams Data
   const scholarshipExams = [
@@ -77,6 +71,12 @@ const ScholarshipPage: React.FC<ScholarshipPageProps> = ({
       {/* Content */}
       <div className="flex-grow flex flex-col items-center justify-center text-white">
         <h2 className="text-2xl font-bold mb-4">Scholarship Information</h2>
+        <button
+          className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700"
+          onClick={() => showModal('Scholarship Info', 'This is a demo modal for scholarship information!')}
+        >
+          Show Scholarship Modal
+        </button>
       </div>
       {/* Scholarships List */}
       <div className="p-4 flex-grow overflow-y-auto hide-scrollbar">

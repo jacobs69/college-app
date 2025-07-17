@@ -8,7 +8,7 @@ interface LibraryPageProps {
     onGoToId: () => void;
     onGoToWallet: () => void;
     onGoToProfile: () => void;
-    showModal: (title: string, message: string, onConfirm?: () => void, onCancel?: () => void) => void;
+    showModal: (title: string, message: string) => void;
 }
 
 interface NavItemProps {
@@ -81,6 +81,12 @@ const LibraryPage: React.FC<LibraryPageProps> = ({
 
             {activeTab === 'search' && (
                 <div className="flex-1 p-4 bg-[#283452] text-white">
+                    <button
+                        className="mb-4 px-6 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700"
+                        onClick={() => showModal('Library Info', 'This is a demo modal for library!')}
+                    >
+                        Show Library Modal
+                    </button>
                     <div className="mb-4">
                         <input
                             type="text"

@@ -14,7 +14,6 @@ interface WalletPageProps {
     onGoToNotifications: () => void;
     onGoToHome: () => void;
     onGoToId: () => void;
-    onGoToWallet: () => void;
     onGoToProfile: () => void;
     walletBalance: number;
     setWalletBalance: (callback: (prevBalance: number) => number) => void;
@@ -39,7 +38,6 @@ const WalletPage: React.FC<WalletPageProps> = ({
     onGoToNotifications,
     onGoToHome,
     onGoToId,
-    onGoToWallet,
     onGoToProfile,
     walletBalance,
     setWalletBalance,

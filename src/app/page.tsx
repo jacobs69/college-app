@@ -216,11 +216,6 @@ function App() {
     setCurrentPage('assignments');
   };
 
-  // Function to navigate to the Contact page
-  const handleGoToContact = () => {
-    setCurrentPage('contact');
-  };
-
   // --- Custom Modal Component ---
   interface ModalProps {
   isOpen: boolean;
@@ -2366,7 +2361,6 @@ interface Notification {
         onGoToNotifications={handleGoToNotifications}
         onGoToHome={handleGoToHome}
         onGoToId={handleGoToId}
-        onGoToWallet={handleGoToWallet}
         onGoToProfile={handleGoToProfile}
         walletBalance={walletBalance}
         setWalletBalance={setWalletBalance}
@@ -2391,9 +2385,9 @@ interface Notification {
         onGoToHome={handleGoToHome}
         onGoToId={handleGoToId}
         onGoToWallet={handleGoToWallet}
-        onGoToProfile={handleGoToProfile}
-        showModal={showModal}
-      />;
+        onGoToProfile={handleGoToProfile} showModal={function (title: string, message: string): void {
+          throw new Error('Function not implemented.');
+        } }      />;
       break;
     case 'scholarship':
       content = <ScholarshipPage

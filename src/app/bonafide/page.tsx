@@ -56,8 +56,15 @@ const BonafideCertificatePage: React.FC<BonafideCertificatePageProps> = ({
             return;
         }
 
+        // Add a null check before using certificateRef.current
+        const certDiv = certificateRef.current;
+        if (!certDiv) {
+            showModal('Download Error', 'Certificate content not found.');
+            return;
+        }
+
         // Check if html2canvas and jsPDF are loaded
-        if (typeof window.html2canvas === 'undefined' || typeof window.jspdf === 'undefined') {
+        if (typeof window.html2canvas !== 'function' || typeof window.jspdf === 'undefined') {
             showModal('Error', 'Required libraries (html2canvas, jspdf) are not loaded. Please ensure script tags are included in your HTML.');
             return;
         }
@@ -65,7 +72,7 @@ const BonafideCertificatePage: React.FC<BonafideCertificatePageProps> = ({
         showModal('Generating PDF', 'Please wait while your certificate is being generated...', null);
 
         try {
-            const canvas = await window.html2canvas(certificateRef.current, { scale: 2 }); // Increase scale for better resolution
+            const canvas = await (window.html2canvas as (element: HTMLElement, options?: any) => Promise<HTMLCanvasElement>)(certDiv, { scale: 2 }); // Increase scale for better resolution
             const imgData = canvas.toDataURL('image/png');
             const pdf = new window.jspdf.jsPDF('p', 'mm', 'a4'); // 'p' for portrait, 'mm' for millimeters, 'a4' for A4 size
 
@@ -106,6 +113,12 @@ const BonafideCertificatePage: React.FC<BonafideCertificatePageProps> = ({
 
             {/* Certificate Content and Download Button */}
             <div className="flex-1 p-4 flex flex-col items-center justify-center">
+                <button
+                    className="mb-4 px-6 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700"
+                    onClick={() => showModal('Bonafide Info', 'This is a demo modal for bonafide certificate!')}
+                >
+                    Show Bonafide Modal
+                </button>
                 <div
                     ref={certificateRef} // Attach ref to the div you want to capture
                     className="bg-white text-gray-800 p-8 md:p-12 rounded-lg shadow-xl max-w-2xl w-full border-4 border-gray-300 relative overflow-hidden"

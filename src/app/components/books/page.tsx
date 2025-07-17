@@ -3,14 +3,6 @@
 import React from 'react';
 import { useState } from 'react';
 
-interface Book {
-  id: number;
-  title: string;
-  author: string;
-  status: 'Available' | 'Checked Out';
-  dueDate?: string;
-}
-
 interface LibraryPageProps {
   onBackToDashboard: () => void;
   onGoToNotifications: () => void;
