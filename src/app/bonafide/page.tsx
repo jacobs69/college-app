@@ -82,7 +82,27 @@ export default function BonafideCertificatePage() {
         }
     };
 
-    function onBackToDashboard(event: React.MouseEvent<HTMLButtonElement>): void {
+    function onBackToDashboard(): void {
+        throw new Error('Function not implemented.');
+    }
+
+    function onGoToHome(): void {
+        throw new Error('Function not implemented.');
+    }
+
+    function onGoToId(): void {
+        throw new Error('Function not implemented.');
+    }
+
+    function onGoToNotifications(): void {
+        throw new Error('Function not implemented.');
+    }
+
+    function onGoToWallet(): void {
+        throw new Error('Function not implemented.');
+    }
+
+    function onGoToProfile(): void {
         throw new Error('Function not implemented.');
     }
 
@@ -172,6 +192,6 @@ export default function BonafideCertificatePage() {
     );
 };
 
-function showModal(arg0: string, arg1: string, p0?: () => void) {
+function showModal() {
     throw new Error('Function not implemented.');
 }
