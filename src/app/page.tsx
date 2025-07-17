@@ -2173,7 +2173,6 @@ interface Notification {
     case 'assignment':
       content = <AssignmentPage
         assignments={assignments}
-        setAssignments={setAssignments}
         onBackToDashboard={handleBackToDashboard}
         onGoToNotifications={handleGoToNotifications}
         onGoToHome={handleGoToHome}
@@ -2328,9 +2327,7 @@ interface Notification {
         onGoToHome={handleGoToHome}
         onGoToId={handleGoToId}
         onGoToWallet={handleGoToWallet}
-        onGoToProfile={handleGoToProfile} showModal={function (title: string, message: string): void {
-          throw new Error('Function not implemented.');
-        } }      />;
+        onGoToProfile={handleGoToProfile} showModal={() => { throw new Error('Function not implemented.'); }} />;
       break;
     case 'scholarship':
       content = <ScholarshipPage
@@ -2429,7 +2426,6 @@ function NavItem({ icon, label, action }:NavItemProps) {
 // --- AssignmentPage Component (Internal to App) ---
 interface AssignmentPageProps {
   assignments: Assignment[];
-  setAssignments: React.Dispatch<React.SetStateAction<Assignment[]>>;
   onBackToDashboard: () => void;
   onGoToNotifications: () => void;
   onGoToHome: () => void;
@@ -2440,7 +2436,6 @@ interface AssignmentPageProps {
 
 function AssignmentPage({
   assignments,
-  setAssignments,
   onBackToDashboard,
   onGoToNotifications,
   onGoToHome,

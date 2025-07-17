@@ -28,7 +28,7 @@ const ScholarshipPage: React.FC<ScholarshipPageProps> = ({
   onGoToProfile,
   showModal
 }) => {
-  const [scholarships, setScholarships] = useState<Scholarship[]>([
+  const [scholarships] = useState<Scholarship[]>([
     // ... existing scholarships ...
   ]);
 
