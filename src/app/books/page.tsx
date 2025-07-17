@@ -1,29 +1,6 @@
 "use client";
 
 import React from 'react';
-import { useState } from 'react';
-
-interface LibraryPageProps {
-  onBackToDashboard: () => void;
-  onGoToNotifications: () => void;
-  onGoToHome: () => void;
-  onGoToId: () => void;
-  onGoToWallet: () => void;
-  onGoToProfile: () => void;
-}
-
-interface NavItemProps {
-  icon: string;
-  label: string;
-  action: () => void;
-}
-
-const NavItem: React.FC<NavItemProps> = ({ icon, label, action }) => (
-  <button onClick={action} className="flex flex-col items-center">
-    <span className="text-2xl">{icon}</span>
-    <span className="text-xs mt-1">{label}</span>
-  </button>
-);
 
 export default function BooksPage() {
   return (
