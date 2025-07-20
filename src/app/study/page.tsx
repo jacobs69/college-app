@@ -20,15 +20,7 @@ interface MaterialItemProps {
     onDownload: (material: Material) => void;
 }
 
-interface StudyMaterialPageProps {
-    onBackToDashboard: () => void;
-    onGoToNotifications: () => void;
-    onGoToHome: () => void;
-    onGoToId: () => void;
-    onGoToWallet: () => void;
-    onGoToProfile: () => void;
-    showModal: (title: string, message: string) => void;
-}
+
 
 interface NavItemProps {
     icon: string;
