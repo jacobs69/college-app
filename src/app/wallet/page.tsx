@@ -9,17 +9,6 @@ interface Transaction {
     date: string;
 }
 
-interface WalletPageProps {
-    onBackToDashboard: () => void;
-    onGoToNotifications: () => void;
-    onGoToHome: () => void;
-    onGoToId: () => void;
-    onGoToProfile: () => void;
-    walletBalance: number;
-    setWalletBalance: (callback: (prevBalance: number) => number) => void;
-    showModal: (title: string, message: string, callback?: (() => void) | null) => void;
-}
-
 interface NavItemProps {
     icon: string;
     label: string;
@@ -33,22 +22,29 @@ const NavItem: React.FC<NavItemProps> = ({ icon, label, action }) => (
     </button>
 );
 
-const WalletPage: React.FC<WalletPageProps> = ({
-    onBackToDashboard,
-    onGoToNotifications,
-    onGoToHome,
-    onGoToId,
-    onGoToProfile,
-    walletBalance,
-    setWalletBalance,
-    showModal
-}) => {
+export default function WalletPage() {
     const [addAmount, setAddAmount] = useState('');
+    const [walletBalance, setWalletBalance] = useState(4550); // Initial balance
     const [transactions, setTransactions] = useState<Transaction[]>([
         { id: 1, type: 'Credit', description: 'Initial Top-up', amount: 5000, date: '2025-05-01' },
         { id: 2, type: 'Debit', description: 'Canteen Purchase', amount: 150, date: '2025-06-10' },
         { id: 3, type: 'Debit', description: 'Bookstore Purchase', amount: 300, date: '2025-06-12' },
     ]);
+
+    // Define local functions for navigation and modal actions
+    function onBackToDashboard() { /* implement navigation or leave as placeholder */ }
+    function onGoToHome() { /* implement navigation or leave as placeholder */ }
+    function onGoToId() { /* implement navigation or leave as placeholder */ }
+    function onGoToNotifications() { /* implement navigation or leave as placeholder */ }
+    function onGoToProfile() { /* implement navigation or leave as placeholder */ }
+    
+    function showModal(title: string, message: string, callback?: () => void) {
+        // Simple alert implementation - you can replace this with a proper modal component
+        alert(`${title}: ${message}`);
+        if (callback) {
+            callback();
+        }
+    }
 
     const handleAddFunds = () => {
         const amount = parseFloat(addAmount);
@@ -66,7 +62,7 @@ const WalletPage: React.FC<WalletPageProps> = ({
     };
 
     const handleScanAndPay = () => {
-        showModal('Scan & Pay', 'Feature under development. Imagine scanning a QR code here!', null);
+        showModal('Scan & Pay', 'Feature under development. Imagine scanning a QR code here!');
     };
 
     return (
@@ -153,6 +149,4 @@ const WalletPage: React.FC<WalletPageProps> = ({
             </div>
         </div>
     );
-};
-
-export default WalletPage; 
+} 
