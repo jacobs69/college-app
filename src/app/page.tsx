@@ -2298,16 +2298,7 @@ interface Notification {
       }
       break;
     case 'wallet':
-      content = <WalletPage
-        onBackToDashboard={handleBackToDashboard}
-        onGoToNotifications={handleGoToNotifications}
-        onGoToHome={handleGoToHome}
-        onGoToId={handleGoToId}
-        onGoToProfile={handleGoToProfile}
-        walletBalance={walletBalance}
-        setWalletBalance={setWalletBalance}
-        showModal={showModal}
-      />;
+      content = <WalletPage />;
       break;
     case 'bonafide':
       content = <BonafideCertificatePage />;
@@ -2316,37 +2307,13 @@ interface Notification {
       content = <LibraryPage />;
       break;
     case 'scholarship':
-      content = <ScholarshipPage
-        onBackToDashboard={handleBackToDashboard}
-        onGoToNotifications={handleGoToNotifications}
-        onGoToHome={handleGoToHome}
-        onGoToId={handleGoToId}
-        onGoToWallet={handleGoToWallet}
-        onGoToProfile={handleGoToProfile}
-        showModal={showModal}
-      />;
+      content = <ScholarshipPage />;
       break;
     case 'studyMaterial':
-      content = <StudyMaterialPage
-        onBackToDashboard={handleBackToDashboard}
-        onGoToNotifications={handleGoToNotifications}
-        onGoToHome={handleGoToHome}
-        onGoToId={handleGoToId}
-        onGoToWallet={handleGoToWallet}
-        onGoToProfile={handleGoToProfile}
-        showModal={showModal}
-      />;
+      content = <StudyMaterialPage />;
       break;
     case 'fees':
-      content = <FeesPage
-        onBackToDashboard={handleBackToDashboard}
-        onGoToNotifications={handleGoToNotifications}
-        onGoToHome={handleGoToHome}
-        onGoToId={handleGoToId}
-        onGoToWallet={handleGoToWallet}
-        onGoToProfile={handleGoToProfile}
-        showModal={showModal}
-      />;
+      content = <FeesPage />;
       break;
     default:
       content = (
