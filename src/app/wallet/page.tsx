@@ -33,7 +33,16 @@ const NavItem: React.FC<NavItemProps> = ({ icon, label, action }) => (
     </button>
 );
 
-export default function WalletPage() {
+const WalletPage: React.FC<WalletPageProps> = ({
+    onBackToDashboard,
+    onGoToNotifications,
+    onGoToHome,
+    onGoToId,
+    onGoToProfile,
+    walletBalance,
+    setWalletBalance,
+    showModal
+}) => {
     const [addAmount, setAddAmount] = useState('');
     const [transactions, setTransactions] = useState<Transaction[]>([
         { id: 1, type: 'Credit', description: 'Initial Top-up', amount: 5000, date: '2025-05-01' },
@@ -144,4 +153,6 @@ export default function WalletPage() {
             </div>
         </div>
     );
-}; 
+};
+
+export default WalletPage; 
