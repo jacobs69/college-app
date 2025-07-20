@@ -3,16 +3,6 @@
 import React from 'react';
 import { useState } from 'react';
 
-interface FeesPageProps {
-    onBackToDashboard: () => void;
-    onGoToNotifications: () => void;
-    onGoToHome: () => void;
-    onGoToId: () => void;
-    onGoToWallet: () => void;
-    onGoToProfile: () => void;
-    showModal: (title: string, message: string, callback?: (() => void) | null) => void;
-}
-
 interface NavItemProps {
     icon: string;
     label: string;
@@ -26,15 +16,7 @@ const NavItem: React.FC<NavItemProps> = ({ icon, label, action }) => (
     </button>
 );
 
-const FeesPage: React.FC<FeesPageProps> = ({ 
-    onBackToDashboard, 
-    onGoToNotifications, 
-    onGoToHome, 
-    onGoToId, 
-    onGoToWallet, 
-    onGoToProfile,
-    showModal 
-}) => {
+export default function FeesPage() {
     const [activeTab, setActiveTab] = useState('pending'); // 'pending' or 'paid'
 
     const pendingFees = [
@@ -47,6 +29,22 @@ const FeesPage: React.FC<FeesPageProps> = ({
         { id: 4, description: 'Tuition Fee - Semester 3', amount: 50000, paidDate: '2025-01-15' },
         { id: 5, description: 'Hostel Fee', amount: 30000, paidDate: '2025-01-10' },
     ];
+
+    // Define local functions for navigation and modal actions
+    function onBackToDashboard() { /* implement navigation or leave as placeholder */ }
+    function onGoToHome() { /* implement navigation or leave as placeholder */ }
+    function onGoToId() { /* implement navigation or leave as placeholder */ }
+    function onGoToNotifications() { /* implement navigation or leave as placeholder */ }
+    function onGoToWallet() { /* implement navigation or leave as placeholder */ }
+    function onGoToProfile() { /* implement navigation or leave as placeholder */ }
+    
+    function showModal(title: string, message: string, callback?: () => void) {
+        // Simple alert implementation - you can replace this with a proper modal component
+        alert(`${title}: ${message}`);
+        if (callback) {
+            callback();
+        }
+    }
 
     const handlePayNow = (fee: typeof pendingFees[0]) => {
         showModal('Pay Fee', `You are about to pay ₹${fee.amount} for ${fee.description}. Proceed?`, () => {
@@ -149,6 +147,4 @@ const FeesPage: React.FC<FeesPageProps> = ({
             </div>
         </div>
     );
-};
-
-export default FeesPage; 
+} 
