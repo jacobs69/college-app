@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 interface NavItemProps {
     icon: string;
@@ -16,6 +17,7 @@ const NavItem: React.FC<NavItemProps> = ({ icon, label, action }) => (
 );
 
 export default function FeesPage() {
+    const router = useRouter();
     const [activeTab, setActiveTab] = useState('pending'); // 'pending' or 'paid'
     const [showContent, setShowContent] = useState(false);
 
@@ -31,12 +33,24 @@ export default function FeesPage() {
     ];
 
     // Define local functions for navigation and modal actions
-    function onBackToDashboard() { /* implement navigation or leave as placeholder */ }
-    function onGoToHome() { /* implement navigation or leave as placeholder */ }
-    function onGoToId() { /* implement navigation or leave as placeholder */ }
-    function onGoToNotifications() { /* implement navigation or leave as placeholder */ }
-    function onGoToWallet() { /* implement navigation or leave as placeholder */ }
-    function onGoToProfile() { /* implement navigation or leave as placeholder */ }
+    function onBackToDashboard() {
+        router.push('/'); // Navigate to home/dashboard
+    }
+    function onGoToHome() {
+        router.push('/'); // Navigate to home/dashboard
+    }
+    function onGoToId() {
+        router.push('/id'); // Navigate to ID page
+    }
+    function onGoToNotifications() {
+        router.push('/notifications'); // Navigate to notifications page
+    }
+    function onGoToWallet() {
+        router.push('/wallet'); // Navigate to wallet page
+    }
+    function onGoToProfile() {
+        router.push('/profile'); // Navigate to profile page
+    }
     
     function showModal(title: string, message: string, callback?: () => void) {
         // Simple alert implementation - you can replace this with a proper modal component

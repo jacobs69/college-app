@@ -1,5 +1,6 @@
 "use client";
 import { useRef } from 'react';
+import { useRouter } from 'next/navigation';
 
 interface NavItemProps {
     icon: string;
@@ -15,6 +16,7 @@ const NavItem: React.FC<NavItemProps> = ({ icon, label, action }) => (
 );
 
 export default function BonafideCertificatePage() {
+    const router = useRouter();
     const certificateRef = useRef<HTMLDivElement>(null); // Create a ref for the certificate content
 
     // Dummy student data
@@ -83,18 +85,26 @@ export default function BonafideCertificatePage() {
     };
 
     // Define local functions for navigation and modal actions
-    function onBackToDashboard() { /* implement navigation or leave as placeholder */ }
+    function onBackToDashboard() {
+        router.push('/'); // Navigate to home/dashboard
+    }
     function onGoToHome() {
-        throw new Error('Function not implemented.');
+        router.push('/'); // Navigate to home/dashboard
     }
 
     function onGoToId() {
-        throw new Error('Function not implemented.');
+        router.push('/id'); // Navigate to ID page
     }
 
-    function onGoToNotifications() { /* implement navigation or leave as placeholder */ }
-    function onGoToWallet() { /* implement navigation or leave as placeholder */ }
-    function onGoToProfile() { /* implement navigation or leave as placeholder */ }
+    function onGoToNotifications() {
+        router.push('/notifications'); // Navigate to notifications page
+    }
+    function onGoToWallet() {
+        router.push('/wallet'); // Navigate to wallet page
+    }
+    function onGoToProfile() {
+        router.push('/profile'); // Navigate to profile page
+    }
 
     return (
         <div className="min-h-screen bg-[#283452] flex flex-col">

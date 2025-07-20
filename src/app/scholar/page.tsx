@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 interface Scholarship {
   title: string;
@@ -10,6 +11,7 @@ interface Scholarship {
 }
 
 export default function ScholarshipPage() {
+  const router = useRouter();
   const [scholarships] = useState<Scholarship[]>([
     // ... existing scholarships ...
   ]);
@@ -44,12 +46,24 @@ export default function ScholarshipPage() {
   ];
 
   // Define local functions for navigation and modal actions
-  function onBackToDashboard() { /* implement navigation or leave as placeholder */ }
-  function onGoToNotifications() { /* implement navigation or leave as placeholder */ }
-  function onGoToWallet() { /* implement navigation or leave as placeholder */ }
-  function onGoToProfile() { /* implement navigation or leave as placeholder */ }
-  function onGoToHome() { /* implement navigation or leave as placeholder */ }
-  function onGoToId() { /* implement navigation or leave as placeholder */ }
+  function onBackToDashboard() {
+    router.push('/'); // Navigate to home/dashboard
+  }
+  function onGoToNotifications() {
+    router.push('/notifications'); // Navigate to notifications page
+  }
+  function onGoToWallet() {
+    router.push('/wallet'); // Navigate to wallet page
+  }
+  function onGoToProfile() {
+    router.push('/profile'); // Navigate to profile page
+  }
+  function onGoToHome() {
+    router.push('/'); // Navigate to home/dashboard
+  }
+  function onGoToId() {
+    router.push('/id'); // Navigate to ID page
+  }
 
   return (
     <div className="min-h-screen bg-[#283452] flex flex-col pb-20">
