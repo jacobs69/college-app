@@ -27,8 +27,8 @@ function App() {
   const [modalTitle, setModalTitle] = useState('');
   const [modalOnConfirm, setModalOnConfirm] = useState<(() => void) | undefined>(undefined);
 
-  const [walletBalance, setWalletBalance] = useState(5000); // Initial wallet balance
-  const [assignments] = useState([
+
+  const [assignments] = useState<Assignment[]>([
     {
       subject: 'Mathematics',
       title: 'Surface Areas and Volumes',
