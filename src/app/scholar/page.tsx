@@ -2,6 +2,19 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
+interface NavItemProps {
+    icon: string;
+    label: string;
+    action: () => void;
+}
+
+const NavItem: React.FC<NavItemProps> = ({ icon, label, action }) => (
+    <button onClick={action} className="flex flex-col items-center">
+        <span className="text-2xl">{icon}</span>
+        <span className="text-xs mt-1">{label}</span>
+    </button>
+);
+
 interface Scholarship {
   title: string;
   provider: string;
@@ -104,26 +117,11 @@ export default function ScholarshipPage() {
       </div>
       {/* Bottom Navigation Bar */}
       <div className="fixed bottom-0 left-0 right-0 bg-white shadow-lg p-3 flex justify-around items-center border-t border-gray-200 z-50">
-        <button onClick={onGoToHome} className="flex flex-col items-center">
-          <span className="text-2xl">🏠</span>
-          <span className="text-xs mt-1">Home</span>
-        </button>
-        <button onClick={onGoToNotifications} className="flex flex-col items-center">
-          <span className="text-2xl">🔔</span>
-          <span className="text-xs mt-1">Notifications</span>
-        </button>
-        <button onClick={onGoToId} className="flex flex-col items-center">
-          <span className="text-2xl">🆔</span>
-          <span className="text-xs mt-1">ID</span>
-        </button>
-        <button onClick={onGoToWallet} className="flex flex-col items-center">
-          <span className="text-2xl">💳</span>
-          <span className="text-xs mt-1">Wallet</span>
-        </button>
-        <button onClick={onGoToProfile} className="flex flex-col items-center">
-          <span className="text-2xl">👤</span>
-          <span className="text-xs mt-1">Profile</span>
-        </button>
+        <NavItem icon="🏠" label="Home" action={onGoToHome} />
+        <NavItem icon="🔔" label="Notifications" action={onGoToNotifications} />
+        <NavItem icon="🆔" label="ID" action={onGoToId} />
+        <NavItem icon="💳" label="Wallet" action={onGoToWallet} />
+        <NavItem icon="👤" label="Profile" action={onGoToProfile} />
       </div>
     </div>
   );
