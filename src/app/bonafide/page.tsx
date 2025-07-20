@@ -182,6 +182,11 @@ export default function BonafideCertificatePage() {
     );
 };
 
-function showModal(_p0: string, _p1: string, _p2?: () => void) {
-    throw new Error('Function not implemented.');
+function showModal(title: string, message: string, callback?: () => void) {
+    // Simple alert implementation - you can replace this with a proper modal component
+    // All parameters are used: title and message in alert, callback if provided
+    alert(`${title}: ${message}`);
+    if (callback) {
+        callback();
+    }
 }

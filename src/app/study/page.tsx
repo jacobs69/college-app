@@ -85,7 +85,8 @@ export default function StudyMaterialPage() {
 
     const handleDownload = (material: Material) => {
         const materialName = 'title' in material ? material.title : `Previous Paper ${material.subject} ${(material as PreviousPaper).year}`;
-        // showModal('Download', `Downloading "${materialName}"... (Feature under development)`); // This line was removed as per the edit hint
+        console.log(`Downloading: ${materialName}`); // Log the material name for debugging
+        // TODO: Implement actual download functionality
     };
 
     return (
