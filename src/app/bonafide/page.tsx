@@ -86,24 +86,24 @@ export default function BonafideCertificatePage() {
 
     // Define local functions for navigation and modal actions
     function onBackToDashboard() {
-        router.push('/'); // Navigate to home/dashboard
+        router.push('/Dashboard'); // Navigate to home/dashboard
     }
     function onGoToHome() {
-        router.push('/'); // Navigate to home/dashboard
+        router.push('/Home'); // Navigate to home/dashboard
     }
 
     function onGoToId() {
-        router.push('/id'); // Navigate to ID page
+        router.push('/Id'); // ID is handled within dashboard SPA
     }
 
     function onGoToNotifications() {
-        router.push('/notifications'); // Navigate to notifications page
+        router.push('/Notifications'); // Notifications are handled within dashboard SPA
     }
     function onGoToWallet() {
-        router.push('/wallet'); // Navigate to wallet page
+        router.push('/Wallet'); // Navigate to wallet page
     }
     function onGoToProfile() {
-        router.push('/profile'); // Navigate to profile page
+        router.push('/Profile'); // Profile is handled within dashboard SPA
     }
 
     return (
