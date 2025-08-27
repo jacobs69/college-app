@@ -830,7 +830,11 @@ function App() {
                 src={internship.logoUrl}
                 alt={`${internship.company} logo`}
                 className="w-16 h-16 rounded-lg object-cover"
-                onError={(e: any) => { e.target.onerror = null; e.target.src = 'https://placehold.co/100x100/cccccc/000000?text=Error'; }}
+                onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
+                  const target = e.currentTarget as HTMLImageElement;
+                  target.onerror = null;
+                  target.src = 'https://placehold.co/100x100/cccccc/000000?text=Error';
+                }}
               />
               <div className="flex-grow">
                 <h3 className="text-lg font-bold text-gray-800">{internship.role}</h3>
