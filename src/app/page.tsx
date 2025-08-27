@@ -196,6 +196,11 @@ function App() {
     setCurrentPage('scholarship');
   };
 
+  // Function to navigate to the Internships page
+  const handleGoToInternships = () => {
+    setCurrentPage('internships');
+  };
+
   // Function to navigate back to the dashboard
   const handleBackToDashboard = () => {
     setCurrentPage('dashboard');
@@ -623,7 +628,8 @@ function App() {
       { icon: '📝', label: 'ASSIGNMENTS', action: () => {} },
       { icon: '🏫', label: 'ABOUT COLLEGE', action: onGoToAboutCollege },
       { icon: '🎉', label: 'EVENTS', action: onGoToEvent },
-      { icon: '🎓', label: 'SCHOLARSHIP', action: handleGoToScholarship }
+      { icon: '🎓', label: 'SCHOLARSHIP', action: handleGoToScholarship },
+      { icon: '💼', label: 'INTERNSHIPS', action: handleGoToInternships }
     ];
 
     // Reusable ActionButton Component
@@ -752,6 +758,112 @@ function App() {
     );
   }
 
+  // --- InternshipsPage Component (Internal to App) ---
+  interface InternshipsPageProps {
+    onBackToDashboard: () => void;
+    onGoToNotifications: () => void;
+    onGoToHome: () => void;
+    onGoToId: () => void;
+    onGoToWallet: () => void;
+    onGoToProfile: () => void;
+  }
+
+  function NavItem({ icon, label, action }: { icon: string; label: string; action: () => void }) {
+    return (
+      <button onClick={action} className="flex flex-col items-center">
+        <span className="text-2xl">{icon}</span>
+        <span className="text-xs mt-1">{label}</span>
+      </button>
+    );
+  }
+
+  function InternshipsPage({ onBackToDashboard, onGoToNotifications, onGoToHome, onGoToId, onGoToWallet, onGoToProfile }: InternshipsPageProps) {
+    const internships = [
+      {
+        company: 'Tech Solutions Inc.',
+        logoUrl: 'https://placehold.co/100x100/A7D9FF/000000?text=TSI',
+        role: 'Frontend Developer Intern',
+        stipend: '₹15,000/month',
+        location: 'Remote',
+        duration: '3 Months',
+        applyLink: '#',
+      },
+      {
+        company: 'Marketing Gurus',
+        logoUrl: 'https://placehold.co/100x100/FFD700/000000?text=MG',
+        role: 'Digital Marketing Intern',
+        stipend: '₹10,000/month',
+        location: 'Mumbai',
+        duration: '6 Months',
+        applyLink: '#',
+      },
+      {
+        company: 'Creative Designs',
+        logoUrl: 'https://placehold.co/100x100/63B3ED/FFFFFF?text=CD',
+        role: 'Graphic Design Intern',
+        stipend: '₹12,000/month',
+        location: 'Work from Home',
+        duration: '2 Months',
+        applyLink: '#',
+      },
+    ];
+
+    return (
+      <div className="min-h-screen bg-[#283452] flex flex-col pb-20">
+        <style>{`
+          .hide-scrollbar::-webkit-scrollbar { display: none; }
+          .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        `}</style>
+
+        {/* Top Bar */}
+        <div className="bg-[#202A40] text-white p-4 flex items-center shadow-md">
+          <button onClick={onBackToDashboard} className="text-white text-2xl px-2 mr-4">&#8592;</button>
+          <h1 className="text-xl font-semibold">Internship Opportunities</h1>
+        </div>
+
+        {/* Internship List */}
+        <div className="p-4 flex-grow overflow-y-auto hide-scrollbar">
+          {internships.map((internship, index) => (
+            <div key={index} className="bg-white rounded-xl shadow-lg p-4 mb-4 flex items-start space-x-4">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={internship.logoUrl}
+                alt={`${internship.company} logo`}
+                className="w-16 h-16 rounded-lg object-cover"
+                onError={(e: any) => { e.target.onerror = null; e.target.src = 'https://placehold.co/100x100/cccccc/000000?text=Error'; }}
+              />
+              <div className="flex-grow">
+                <h3 className="text-lg font-bold text-gray-800">{internship.role}</h3>
+                <p className="text-md font-semibold text-gray-700">{internship.company}</p>
+                <div className="text-sm text-gray-600 mt-2 space-y-1">
+                  <p><strong>Stipend:</strong> {internship.stipend}</p>
+                  <p><strong>Location:</strong> {internship.location}</p>
+                  <p><strong>Duration:</strong> {internship.duration}</p>
+                </div>
+                <a
+                  href={internship.applyLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-3 inline-block w-full text-center bg-blue-700 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors duration-200"
+                >
+                  Apply Now
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Bottom Navigation Bar */}
+        <div className="fixed bottom-0 left-0 right-0 bg-white shadow-lg p-3 flex justify-around items-center border-t border-gray-200 z-50">
+          <NavItem icon="🏠" label="Home" action={onGoToHome} />
+          <NavItem icon="🔔" label="Notifications" action={onGoToNotifications} />
+          <NavItem icon="🆔" label="ID" action={onGoToId} />
+          <NavItem icon="💳" label="Wallet" action={onGoToWallet} />
+          <NavItem icon="👤" label="Profile" action={onGoToProfile} />
+        </div>
+      </div>
+    );
+  }
   // --- AttendancePage Component (Internal to App) ---
   interface AttendancePageProps {
   onBackToDashboard: () => void;
@@ -2314,6 +2426,18 @@ interface Notification {
       break;
     case 'fees':
       content = <FeesPage />;
+      break;
+    case 'internships':
+      content = (
+        <InternshipsPage
+          onBackToDashboard={handleBackToDashboard}
+          onGoToNotifications={handleGoToNotifications}
+          onGoToHome={handleGoToHome}
+          onGoToId={handleGoToId}
+          onGoToWallet={handleGoToWallet}
+          onGoToProfile={handleGoToProfile}
+        />
+      );
       break;
     default:
       content = (
